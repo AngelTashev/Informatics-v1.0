@@ -1,0 +1,82 @@
+@font-face {
+	font-family: exo;
+	src: url('../fonts/Exo2-VariableFont_wght.ttf');
+}
+
+.nav-item {
+	font-family: exo;
+	font-weight: 300;
+}
+
+.navbar-brand {
+	font-family: exo;
+	font-weight: 600;
+}
+
+.lead {
+	font-family: exo;
+	font-weight: 400;
+	font-style: italic;
+}
+
+h1 {
+	font-family: exo;
+	font-weight: 600;
+}
+
+
+.fixed-top {
+	background-color: rgba(60, 60, 60, 1);
+	height: 55px;
+	font-size: 17px;
+	transition: background-color 1s, height 1s, font-size 1s;
+}
+
+.fixed-top.opaque {
+	background-color: rgba(30, 30, 30, 0.87);
+	height: 50px;
+	font-size: 15px;
+	transition: background-color 1s height 1s, font-size 1s;
+}
+header {
+	/* TODO: Fix header height to be background-image size */
+	/* width: 100%; */
+	height: 400px;
+	margin-top: 55px;
+  /* position: relative; */
+	/* background: rgba(0, 0, 0, 0.3); */
+	/* padding: 50px 20px; */
+	background-image: url('../img/informatics-banner.jpg');
+	/* background-position: center center; */
+	background-repeat: no-repeat;
+	/* background-attachment: fixed; */
+	background-size: cover;
+	/* padding-top: 30%; */
+	size: wrap;
+
+	/* filter: brightness(70%); */
+}
+
+.imagee {
+	size: cover;
+	repeat: no-repeat;
+}
+
+.masthead-heading {
+	/* font-size: 8em; */
+	/* -webkit-text-fill-color: white; /* Will override color (regardless of order) */ */
+  /* -webkit-text-stroke-width: 1px; */
+  /* -webkit-text-stroke-color: black; */
+}
+
+.dropdown-menu {
+	background-color: rgba(60, 60, 60 ,1);
+}
+
+.collapse {
+	background-color: rgba(60, 60, 60 ,1);
+}
+
+.navbar-brand {
+	font-size: 18px;
+}
