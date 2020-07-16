@@ -27,9 +27,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/index").permitAll()
+                .antMatchers("/files/upload").permitAll()
                 .antMatchers("/home").hasRole("USER")
                 .and()
                 .formLogin()
-                .loginPage("/login");
+                .loginPage("/login")
+                .and()
+                .csrf().disable();
     }
 }
