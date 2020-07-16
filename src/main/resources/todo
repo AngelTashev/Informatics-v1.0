@@ -5,3 +5,4 @@ logout page
 security
 download file
 upload file +++
+#SET GLOBAL max_allowed_packet=268435456;   for sql packets
