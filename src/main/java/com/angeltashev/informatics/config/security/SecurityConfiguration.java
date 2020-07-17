@@ -1,4 +1,4 @@
-package com.angeltashev.informatics.security;
+package com.angeltashev.informatics.config.security;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -26,9 +26,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/index").permitAll()
-                .antMatchers("/files/upload").permitAll()
-                .antMatchers("/home").hasRole("USER")
+                .antMatchers("/index", "/files/upload").permitAll()
+                .antMatchers("/home").hasAnyRole("USER", "ADMIN", "ROOT_ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")

@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Hello</title>
+    <head th:include="~{/fragments/head}"></head>
 </head>
 <body style="background-color: black">
+    <th:block th:include="~{/fragments/nav}"/>
     <h1 style="font-family: sans-serif; font-size: 69px; color: red; text-align: center">Hello, User!</h1>
     <div>
         <a th:href="@{/logout}">Logout</a>

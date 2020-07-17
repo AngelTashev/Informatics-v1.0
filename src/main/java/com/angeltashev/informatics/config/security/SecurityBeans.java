@@ -1,4 +1,4 @@
-package com.angeltashev.informatics.security;
+package com.angeltashev.informatics.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

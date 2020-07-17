@@ -1,18 +1,25 @@
 package com.angeltashev.informatics.user.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(generator = "uuid-string")
@@ -27,13 +34,38 @@ public class UserEntity {
     private String email;
 
     @Column(name = "password", nullable = false)
-    private String passwordHash;
+    private String password;
 
-    @OneToMany(
-            orphanRemoval = true,
-            cascade = CascadeType.ALL,
+    @Column(nullable = false )
+    @DateTimeFormat(pattern = "MM-dd-yyyy HH:mm")
+    private LocalDateTime registrationDate;
+
+    @Column(name = "active")
+    private boolean active;
+
+    @ManyToMany(
             fetch = FetchType.EAGER
     )
     @JoinColumn(name = "user_id")
-    private Set<RoleEntity> roles = new HashSet<>();
+    private Set<AuthorityEntity> authorities = new HashSet<>();
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return active;
+    }
 }

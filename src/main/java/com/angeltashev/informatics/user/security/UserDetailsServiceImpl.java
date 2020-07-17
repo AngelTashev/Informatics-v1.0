@@ -1,6 +1,6 @@
 package com.angeltashev.informatics.user.security;
 
-import com.angeltashev.informatics.user.model.RoleEntity;
+import com.angeltashev.informatics.user.model.AuthorityEntity;
 import com.angeltashev.informatics.user.model.UserEntity;
 import com.angeltashev.informatics.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -31,12 +30,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserDetails map(UserEntity user) {
         return new User(
                 user.getUsername(),
-                user.getPasswordHash(),
-                user.getRoles().stream().map(this::map).collect(Collectors.toSet())
+                user.getPassword(),
+                user.getAuthorities().stream().map(this::map).collect(Collectors.toSet())
         );
     }
 
-    private GrantedAuthority map(RoleEntity role) {
-        return new SimpleGrantedAuthority(role.getRole());
+    private GrantedAuthority map(AuthorityEntity role) {
+        return new SimpleGrantedAuthority(role.getAuthority());
     }
 }
