@@ -3,6 +3,14 @@
 	src: url('../fonts/Exo2-VariableFont_wght.ttf');
 }
 
+body {
+	padding-top: 55px;
+}
+
+.py-5 {
+	padding-top: 0px!important;
+}
+
 .nav-item {
 	font-family: exo;
 	font-weight: 300;
