@@ -11,7 +11,8 @@ import java.security.Principal;
 public class HomeController {
 
     @GetMapping
-    public String getIndex() {
+    public String getIndex(Model model) {
+        model.addAttribute("username", "Ivan");
         return "index/index";
     }
 

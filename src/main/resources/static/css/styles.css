@@ -36,35 +36,16 @@ h1 {
 	background-color: rgba(30, 30, 30, 0.87);
 	height: 50px;
 	font-size: 15px;
-	transition: background-color 1s height 1s, font-size 1s;
-}
-header {
-	/* TODO: Fix header height to be background-image size */
-	/* width: 100%; */
-	height: 400px;
-	margin-top: 55px;
-  /* position: relative; */
-	/* background: rgba(0, 0, 0, 0.3); */
-	/* padding: 50px 20px; */
-	background-image: url('../img/informatics-banner.jpg');
-	/* background-position: center center; */
-	background-repeat: no-repeat;
-	/* background-attachment: fixed; */
-	background-size: cover;
-	/* padding-top: 30%; */
-	size: wrap;
-
-	/* filter: brightness(70%); */
+	transition: background-color 1s, height 1s, font-size 1s;
 }
 
 .imagee {
-	size: cover;
 	repeat: no-repeat;
 }
 
 .masthead-heading {
 	/* font-size: 8em; */
-	/* -webkit-text-fill-color: white; /* Will override color (regardless of order) */ */
+	/* -webkit-text-fill-color: white; /* Will override color (regardless of order) */
   /* -webkit-text-stroke-width: 1px; */
   /* -webkit-text-stroke-color: black; */
 }
@@ -79,4 +60,16 @@ header {
 
 .navbar-brand {
 	font-size: 18px;
+}
+
+.card {
+	width: 18em;
+}
+
+.footer-title{
+	color: #F29F05;
+}
+
+.footer-content {
+	color: #FFF;
 }
