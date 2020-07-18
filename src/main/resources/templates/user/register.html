@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+<th:block th:include="~{/fragments/nav}"/>
+<!-- Header - set the background image for the header in the line below
+-->
+<!-- Content section -->
+<div class="container-fluid">
+    <div class="row no-gutter mgcls">
+        <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+        <div class="col-md-8 col-lg-6">
+            <div class="login d-flex align-items-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 col-lg-8 mx-auto">
+                            <h3 class="login-heading mb-4">Hey there! Welcome to the team!</h3>
+                            <form th:object="${registerModel}" th:action="@{/users/register}" th:method="POST">
+                                <!--Username-->
+                                <div class="mx-auto mb-1" th:each="e : ${#fields.errors('username')}">
+                                    <small th:text="${e}" class="text-danger"></small>
+                                </div>
+                                <div class="form-label-group">
+                                    <input th:field="*{username}" type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+                                    <label for="username">Username</label>
+                                </div>
+
+                                <!--Email-->
+                                <div class="mx-auto mb-1" th:each="e : ${#fields.errors('email')}">
+                                    <small th:text="${e}" class="text-danger"></small>
+                                </div>
+                                <div class="form-label-group">
+                                    <input th:field="*{email}" type="email" id="email" name="email" class="form-control" placeholder="Email address" required>
+                                    <label for="email">Email</label>
+                                </div>
+
+                                <!--Password-->
+                                <div class="mx-auto mb-1" th:each="e : ${#fields.errors('password')}">
+                                    <small th:text="${e}" class="text-danger"></small>
+                                </div>
+                                <div class="form-label-group">
+                                    <input th:field="*{password}" type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                                    <label for="password">Password</label>
+                                </div>
+
+                                <!--Confirm password-->
+                                <div class="mx-auto mb-1" th:each="e : ${#fields.errors('confirmPassword')}">
+                                    <small th:text="${e}" class="text-danger"></small>
+                                </div>
+                                <div class="form-label-group">
+                                    <input th:field="*{confirmPassword}" type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm password" required>
+                                    <label for="confirmPassword">Confirm password</label>
+                                </div>
+
+                                <!--Grade-->
+                                <div class="mx-auto mb-1" th:each="e : ${#fields.errors('grade')}">
+                                    <small th:text="${e}" class="text-danger"></small>
+                                </div>
+                                <div>
+<!--                                    <label for="grade">Grade</label>-->
+                                    <select th:field="*{grade}" id="grade" name="grade" class="browser-default custom-select custom-select-lg mb-3">
+                                        <option value="" selected>Select grade</option>
+                                        <option th:value="8">8</option>
+                                        <option th:value="9">9</option>
+                                        <option th:value="10">10</option>
+                                        <option th:value="11">11</option>
+                                        <option th:value="12">12</option>
+                                    </select>
+                                </div>
+
+                                <!--Grade class-->
+                                <div class="mx-auto mb-1" th:each="e : ${#fields.errors('gradeClass')}">
+                                    <small th:text="${e}" class="text-danger"></small>
+                                </div>
+                                <div>
+<!--                                    <label for="gradeClass">Class</label>-->
+                                    <select th:field="*{gradeClass}" id="gradeClass" name="gradeClass" class="browser-default custom-select custom-select-lg mb-3">
+                                        <option value="" selected>Select class</option>
+                                        <option th:value="A">A</option>
+                                        <option th:value="B">B</option>
+                                        <option th:value="V">V</option>
+                                        <option th:value="G">G</option>
+                                        <option th:value="D">D</option>
+                                        <option th:value="E">E</option>
+                                        <option th:value="ZH">ZH</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-label-group">
+                                    <input type="text" id="phrase" name="phrase" class="form-control" placeholder="Your own personal phrase!">
+                                    <label for="phrase">Your own personal phrase!</label>
+                                </div>
+
+                                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Create account!</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

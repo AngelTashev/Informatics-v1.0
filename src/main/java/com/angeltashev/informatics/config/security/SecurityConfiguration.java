@@ -27,10 +27,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/index", "/files/upload").permitAll()
-                .antMatchers("/home").hasAnyRole("USER", "ADMIN", "ROOT_ADMIN")
+                .antMatchers("/users/register").anonymous()
+                .antMatchers("/home").hasAnyRole("STUDENT", "ADMIN", "ROOT_ADMIN")
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/users/login")
                 .and()
                 .csrf().disable();
     }

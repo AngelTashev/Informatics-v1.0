@@ -36,19 +36,30 @@ public class UserEntity implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(nullable = false )
+    @Column(name = "registration_date", nullable = false )
     @DateTimeFormat(pattern = "MM-dd-yyyy HH:mm")
     private LocalDateTime registrationDate;
 
     @Column(name = "active")
     private boolean active;
 
-    @ManyToMany(
-            fetch = FetchType.EAGER
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.DETACH
     )
-    @JoinColumn(name = "user_id")
     private Set<AuthorityEntity> authorities = new HashSet<>();
 
+    @Column(name="grade", nullable = false)
+    private Integer grade;
+
+    @Column(name = "class", nullable = false)
+    private String gradeClass;
+
+    @Column(name = "phrase")
+    private String phrase;
+
+
+    // Security
     @Override
     public boolean isAccountNonExpired() {
         return true;

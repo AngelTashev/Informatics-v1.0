@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
-@Table(name = "roles")
+@Table(name = "authorities")
 public class AuthorityEntity implements GrantedAuthority {
 
     @Id
