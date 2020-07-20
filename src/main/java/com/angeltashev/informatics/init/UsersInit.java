@@ -34,6 +34,7 @@ public class UsersInit implements CommandLineRunner {
         if (this.userRepository.count() == 0) {
             // Root admin
             UserEntity root = new UserEntity();
+            root.setFullName("Root Admin");
             root.setUsername("root");
             root.setEmail("root@root.toor");
             root.setPassword(passwordEncoder.encode("root123"));
@@ -46,6 +47,7 @@ public class UsersInit implements CommandLineRunner {
 
             // Admin
             UserEntity admin = new UserEntity();
+            admin.setFullName("Admin");
             admin.setUsername("admin");
             admin.setEmail("admin@admin.adm");
             admin.setPassword(passwordEncoder.encode("admin123"));
@@ -58,9 +60,10 @@ public class UsersInit implements CommandLineRunner {
 
             // Pesho
             UserEntity pesho = new UserEntity();
-            pesho.setUsername("pesho");
+            pesho.setFullName("Pesho Ivanov");
+            pesho.setUsername("pesho_ivanov.2020");
             pesho.setEmail("pesho@gmail.com");
-            pesho.setPassword(passwordEncoder.encode("peshos123"));
+            pesho.setPassword(passwordEncoder.encode("pesho123"));
             pesho.getAuthorities().add(this.authorityRepository.findByAuthority("ROLE_USER"));
             pesho.setGrade(9);
             pesho.setGradeClass("A");

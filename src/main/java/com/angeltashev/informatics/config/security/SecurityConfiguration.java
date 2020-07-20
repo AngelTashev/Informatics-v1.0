@@ -28,8 +28,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/index", "/files/upload").permitAll()
-                .antMatchers("/users/register").anonymous()
-                .antMatchers("/home").hasAnyRole("STUDENT", "ADMIN", "ROOT_ADMIN")
+                .antMatchers("/users/register", "/users/login").anonymous()
+                .antMatchers("/home", "/users/**", "/users/my-profile").authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/users/login")

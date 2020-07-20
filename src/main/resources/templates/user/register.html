@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Welcome!</title>
     <th:block th:include="~{fragments/head}"/>
     <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
@@ -19,12 +20,22 @@
                         <div class="col-md-9 col-lg-8 mx-auto">
                             <h3 class="login-heading mb-4">Hey there! Welcome to the team!</h3>
                             <form th:object="${registerModel}" th:action="@{/users/register}" th:method="POST">
+
+                                <!--Full name-->
+                                <div class="mx-auto mb-1" th:each="e : ${#fields.errors('fullName')}">
+                                    <small th:text="${e}" class="text-danger"></small>
+                                </div>
+                                <div class="form-label-group">
+                                    <input th:field="*{fullName}" type="text" id="fullName" name="fullName" class="form-control" placeholder="Full name" required autofocus>
+                                    <label for="fullName">Full name</label>
+                                </div>
+
                                 <!--Username-->
                                 <div class="mx-auto mb-1" th:each="e : ${#fields.errors('username')}">
                                     <small th:text="${e}" class="text-danger"></small>
                                 </div>
                                 <div class="form-label-group">
-                                    <input th:field="*{username}" type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+                                    <input th:field="*{username}" type="text" id="username" name="username" class="form-control" placeholder="Username" required>
                                     <label for="username">Username</label>
                                 </div>
 
@@ -61,7 +72,7 @@
                                 </div>
                                 <div>
 <!--                                    <label for="grade">Grade</label>-->
-                                    <select th:field="*{grade}" id="grade" name="grade" class="browser-default custom-select custom-select-lg mb-3">
+                                    <select th:field="*{grade}" id="grade" name="grade" class="browser-default custom-select custom-select-lg mb-3" required>
                                         <option value="" selected>Select grade</option>
                                         <option th:value="8">8</option>
                                         <option th:value="9">9</option>
@@ -77,7 +88,7 @@
                                 </div>
                                 <div>
 <!--                                    <label for="gradeClass">Class</label>-->
-                                    <select th:field="*{gradeClass}" id="gradeClass" name="gradeClass" class="browser-default custom-select custom-select-lg mb-3">
+                                    <select th:field="*{gradeClass}" id="gradeClass" name="gradeClass" class="browser-default custom-select custom-select-lg mb-3" required>
                                         <option value="" selected>Select class</option>
                                         <option th:value="A">A</option>
                                         <option th:value="B">B</option>

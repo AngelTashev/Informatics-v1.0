@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="~{/fragments/head}"></head>
+<head>
+    <th:block th:include="~{/fragments/head}"/>
+    <title>Informatics Club</title>
+    <script data-cfasync="false" data-tockify-script="embed" src="https://public.tockify.com/browser/embed.js"></script>
+</head>
 <body>
 
     <th:block th:replace="~{/fragments/nav}"/>
@@ -9,49 +13,9 @@
     -->
     <header class="text-center py-5 bg-image-full">
         <img class="imagee" src="../img/informatics-banner.jpg" style="width: 100%;">
-        <!-- <img class="img-fluid d-block mx-auto" src="img/logo.png" style="width:
-        200px; margin: 100px" alt="Informatics logo"> -->
-        <!-- <div class="masthead-content"> -->
-        <!-- <div class="container"> -->
-        <!-- <h1 class="masthead-heading mb-0">Informatics Coding Club</h1> -->
-        <!-- <h2 class="masthead-subheading mb-0">Will Rock Your Socks Off</h2> -->
-        <!-- <a href="#" class="btn btn-primary btn-xl rounded-pill mt-5">Learn More</a> -->
-        <!-- </div> -->
-        <!-- </div> -->
     </header>
+
     <!-- Content section -->
-    <div class="card-deck" style="padding: 30px; align: center;">
-      <div class="col-sm-3">
-        <div class="card text-center">
-          <img class="card-img-top" src="../img/informatics-people.jpg" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Informatics certificate ceremony</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="card">
-          <img class="card-img-top" src="../img/informatics-people.jpg" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Informatics certificate ceremony</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="card">
-          <img class="card-img-top" src="../img/informatics-people.jpg" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Informatics certificate ceremony</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-    </div>
     <section class="py-5">
         <div class="container">
              <h1>Informatics coding club</h1>
@@ -60,9 +24,54 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit,
                 rerum quos facilis repellat architecto commodi officia atque nemo facere
                 eum non illo voluptatem quae delectus odit vel itaque amet.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit,
+                rerum quos facilis repellat architecto commodi officia atque nemo facere
+                eum non illo voluptatem quae delectus odit vel itaque amet.</p>
         </div>
     </section>
-    <section class="py-5">
+    <!-- Slideshow -->
+    <div class="m-auto" style="width: 80%">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" th:src="@{/img/informatics-people.jpg}" alt="First slide">
+                    <div class="carousel-caption d-none d-md-block" style="background-color: rgba(0, 0, 0, 0.6)">
+                        <h5>Certification ceremony</h5>
+                        <p>It was a lot of fun for everyone!</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" th:src="@{/img/informatics-people.jpg}" alt="Second slide">
+                    <div class="carousel-caption d-none d-md-block" style="background-color: rgba(0, 0, 0, 0.6)">
+                        <h5>Certification ceremony</h5>
+                        <p>It was a lot of fun for everyone!</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" th:src="@{/img/informatics-people.jpg}" alt="Third slide">
+                    <div class="carousel-caption d-none d-md-block" style="background-color: rgba(0, 0, 0, 0.6)">
+                        <h5>Certification ceremony</h5>
+                        <p>It was a lot of fun for everyone!</p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+    <section class="py-5 mt-5">
         <div class="container">
              <h1>Our goal</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit,

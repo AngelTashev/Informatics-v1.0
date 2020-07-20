@@ -6,6 +6,7 @@ import com.angeltashev.informatics.user.model.UserEntity;
 import com.angeltashev.informatics.user.model.binding.UserDTO;
 import com.angeltashev.informatics.user.model.binding.UserRegisterBindingModel;
 import com.angeltashev.informatics.user.model.view.UserProfileViewModel;
+import com.angeltashev.informatics.user.model.view.UserVisitViewModel;
 import com.angeltashev.informatics.user.repository.UserRepository;
 import com.angeltashev.informatics.user.service.AuthorityProcessingService;
 import com.angeltashev.informatics.user.service.UserService;
@@ -59,6 +60,24 @@ public class UserServiceImpl implements UserService {
         }
         userProfileViewModel.setProfilePictureString(profilePictureString);
         return userProfileViewModel;
+    }
+
+    @Override
+    public UserVisitViewModel getUserVisitProfile(String username) throws UsernameNotFoundException {
+
+        UserEntity userEntity = this.userRepository.findByUsername(username).orElse(null);
+        if (userEntity == null) throw new UsernameNotFoundException("Username is not found");
+        UserVisitViewModel userVisitViewModel = this.modelMapper.map(
+                userEntity,
+                UserVisitViewModel.class
+        );
+        byte[] profilePicture = userEntity.getProfilePicture();
+        String profilePictureString = "";
+        if (profilePicture != null) {
+            profilePictureString = Base64.getEncoder().encodeToString(userEntity.getProfilePicture());
+        }
+        userVisitViewModel.setProfilePictureString(profilePictureString);
+        return userVisitViewModel;
     }
 
     @Override

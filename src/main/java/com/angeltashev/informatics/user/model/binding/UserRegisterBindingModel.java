@@ -1,5 +1,6 @@
 package com.angeltashev.informatics.user.model.binding;
 
+import com.angeltashev.informatics.user.validation.annotation.FullName;
 import com.angeltashev.informatics.user.validation.annotation.Password;
 import com.angeltashev.informatics.user.validation.annotation.Username;
 import lombok.Data;
@@ -14,7 +15,12 @@ import javax.validation.constraints.NotNull;
 public class UserRegisterBindingModel {
 
     @NotNull
-    @Username(message = "Username must contain only lowercase characters and . or _")
+    @FullName(message = "Full name must start with an uppercase character")
+    @Length(min = 4, max = 30, message = "Full name must be between 4 and 30 characters")
+    private String fullName;
+
+    @NotNull
+    @Username(message = "Username must contain only lowercase characters, numbers and . or _")
     @Length(min = 6, max = 20, message = "Username length must be between 6 and 20 characters")
     private String username;
 

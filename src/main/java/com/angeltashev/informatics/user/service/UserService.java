@@ -4,6 +4,8 @@ import com.angeltashev.informatics.file.exception.FileStorageException;
 import com.angeltashev.informatics.user.model.binding.UserDTO;
 import com.angeltashev.informatics.user.model.binding.UserRegisterBindingModel;
 import com.angeltashev.informatics.user.model.view.UserProfileViewModel;
+import com.angeltashev.informatics.user.model.view.UserVisitViewModel;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
@@ -11,6 +13,7 @@ public interface UserService {
     boolean registerUser(UserRegisterBindingModel userRegisterBindingModel);
 
     UserProfileViewModel getUserProfile(String username);
+    UserVisitViewModel getUserVisitProfile(String username) throws UsernameNotFoundException;
 
     UserDTO findByUsername(String username);
     UserDTO findByEmail(String email);

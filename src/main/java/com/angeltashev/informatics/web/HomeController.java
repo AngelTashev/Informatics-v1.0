@@ -1,5 +1,6 @@
 package com.angeltashev.informatics.web;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ public class HomeController {
         return "index/index";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/home")
     public String getHome(@AuthenticationPrincipal Principal principal, Model model) {
         model.addAttribute("user", principal);

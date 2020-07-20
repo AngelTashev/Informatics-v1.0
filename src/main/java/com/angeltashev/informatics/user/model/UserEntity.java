@@ -27,6 +27,9 @@ public class UserEntity implements UserDetails {
     @Column(name = "id", nullable = false, updatable = false)
     private String id;
 
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
+
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
