@@ -7,6 +7,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @AllArgsConstructor
 @Configuration
@@ -22,6 +25,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder);
     }
 
+    private CsrfTokenRepository csrfTokenRepository() {
+        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+        repository.setSessionAttributeName("_csrf");
+        return repository;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // TODO Finish configuration
@@ -29,11 +38,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/index", "/files/upload").permitAll()
                 .antMatchers("/users/register", "/users/login").anonymous()
-                .antMatchers("/home", "/users/**", "/users/my-profile").authenticated()
+                .antMatchers("/home", "/users/**").authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/users/login")
+                .defaultSuccessUrl("/home")
                 .and()
-                .csrf().disable();
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutSuccessUrl("/")
+                .and()
+                .csrf().csrfTokenRepository(this.csrfTokenRepository());
     }
 }

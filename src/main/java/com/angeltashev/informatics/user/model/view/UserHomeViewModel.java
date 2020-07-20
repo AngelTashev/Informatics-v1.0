@@ -5,11 +5,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserVisitViewModel {
+public class UserHomeViewModel {
 
     private String fullName;
-    private String username;
-    private String authority;
-    private String phrase;
-    private String profilePictureString;
+    // TODO Assignments
 }

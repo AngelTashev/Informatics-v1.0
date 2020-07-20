@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>User not found!</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet">
+    <link th:href="@{/css/user-404.css}" type="text/css" rel="stylesheet">
     <th:block th:include="~{/fragments/head}"/>
 </head>
-<body style="background-color: #333333">
-<h1 style="font-size: 300px; color: darkgreen">404 NOT FOUND</h1>
+<body>
+<th:block th:include="~{/fragments/nav}"/>
+<div id="notfound">
+    <div class="notfound">
+        <div class="notfound-404">
+            <h1>Oops!</h1>
+            <h2>404 - This user does not exist</h2>
+        </div>
+        <a th:href="@{/home}">Go home!</a>
+    </div>
+</div>
+<th:block th:include="~{/fragments/footer}"/>
 </body>
 </html>

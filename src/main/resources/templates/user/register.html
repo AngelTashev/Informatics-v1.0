@@ -100,6 +100,10 @@
                                     </select>
                                 </div>
 
+                                <div class="mx-auto mb-1" th:each="e : ${#fields.errors('phrase')}">
+                                    <small th:text="${e}" class="text-danger"></small>
+                                </div>
+                                <div>
                                 <div class="form-label-group">
                                     <input type="text" id="phrase" name="phrase" class="form-control" placeholder="Your own personal phrase!">
                                     <label for="phrase">Your own personal phrase!</label>

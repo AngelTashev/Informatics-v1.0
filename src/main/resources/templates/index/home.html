@@ -8,13 +8,20 @@
 <body>
 
 <th:block th:replace="~{/fragments/nav}"/>
+<div th:object="${userHomeView}">
+    <h1 class="m-lg-5 text-center">Hello, <span th:text="*{fullName}"></span></h1>
 
-<!-- Calendar -->
-<div class="row">
-    <div class="m-auto" style="width: 50%;">
-        <div data-tockify-component="mini" data-tockify-calendar="angel.tashev"></div>
+
+    <!-- Calendar and assignments -->
+    <div class="row m-5">
+        <div class="m-auto" style="width: 45%;">
+            <div data-tockify-component="mini" data-tockify-calendar="angel.tashev"></div>
+        </div>
+        <div class="ml-auto mr-auto" style="width: 45%; border: #ffc61d 2px solid">
+            <h3 class="m-4">Assignments pending</h3>
+        </div>
+        <!--        <h1>Events</h1>-->
     </div>
-    <!--        <h1>Events</h1>-->
 </div>
 
 

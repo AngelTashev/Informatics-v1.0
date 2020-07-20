@@ -1,9 +1,17 @@
-validations +register
-home page
-login page + (remember password needs implementation)
 logout page +++
 register page +++
+upload file +++
+error handling - user page +++
+validations +register
+login page + (remember password needs implementation)
+home page +
+edit user details page
+change all texts
 security
 download file
-upload file +++
+error handling - default error page
+async
+logger
+unit testing
+
 #SET GLOBAL max_allowed_packet=268435456;   for sql packets

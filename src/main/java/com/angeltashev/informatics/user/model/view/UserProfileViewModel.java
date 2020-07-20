@@ -10,5 +10,7 @@ public class UserProfileViewModel {
     private String fullName;
     private String username;
     private String email;
+    private String authority;
+    private String phrase;
     private String profilePictureString;
 }

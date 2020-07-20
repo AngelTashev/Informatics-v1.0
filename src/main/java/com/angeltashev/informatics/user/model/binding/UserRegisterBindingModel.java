@@ -43,7 +43,7 @@ public class UserRegisterBindingModel {
     @Length(min = 1, message = "Please select your class")
     private String gradeClass;
 
-    @Length(max = 30, message = "Phrase length cannot be more than 30 characters")
+    @Length(max = 50, message = "Phrase length cannot be more than 50 characters")
     private String phrase;
 
 }

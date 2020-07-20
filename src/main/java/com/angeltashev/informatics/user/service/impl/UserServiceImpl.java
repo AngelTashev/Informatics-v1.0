@@ -1,10 +1,11 @@
 package com.angeltashev.informatics.user.service.impl;
 
 import com.angeltashev.informatics.file.exception.FileStorageException;
-import com.angeltashev.informatics.file.model.DBFile;
+import com.angeltashev.informatics.user.model.AuthorityEntity;
 import com.angeltashev.informatics.user.model.UserEntity;
 import com.angeltashev.informatics.user.model.binding.UserDTO;
 import com.angeltashev.informatics.user.model.binding.UserRegisterBindingModel;
+import com.angeltashev.informatics.user.model.view.UserHomeViewModel;
 import com.angeltashev.informatics.user.model.view.UserProfileViewModel;
 import com.angeltashev.informatics.user.model.view.UserVisitViewModel;
 import com.angeltashev.informatics.user.repository.UserRepository;
@@ -21,8 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Base64;
-import java.util.Optional;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -42,6 +44,7 @@ public class UserServiceImpl implements UserService {
         user.setAuthorities(Set.of(authorityProcessingService.getStudentAuthority()));
         user.setActive(true);
         user.setRegistrationDate(LocalDateTime.now());
+        //TODO Fix duplicate entry for authority_id; cannot have more than one student
         this.userRepository.saveAndFlush(user);
         return true;
     }
@@ -53,6 +56,7 @@ public class UserServiceImpl implements UserService {
                 userEntity,
                 UserProfileViewModel.class
         );
+        userProfileViewModel.setAuthority(getUserAuthority(userEntity));
         byte[] profilePicture = userEntity.getProfilePicture();
         String profilePictureString = "";
         if (profilePicture != null) {
@@ -71,6 +75,7 @@ public class UserServiceImpl implements UserService {
                 userEntity,
                 UserVisitViewModel.class
         );
+        userVisitViewModel.setAuthority(getUserAuthority(userEntity));
         byte[] profilePicture = userEntity.getProfilePicture();
         String profilePictureString = "";
         if (profilePicture != null) {
@@ -78,6 +83,16 @@ public class UserServiceImpl implements UserService {
         }
         userVisitViewModel.setProfilePictureString(profilePictureString);
         return userVisitViewModel;
+    }
+
+    @Override
+    public UserHomeViewModel getUserHomeDetails(String username) {
+        UserEntity userEntity = this.userRepository.findByUsername(username).orElse(new UserEntity());
+        UserHomeViewModel userHomeViewModel = this.modelMapper.map(
+                userEntity,
+                UserHomeViewModel.class
+        );
+        return userHomeViewModel;
     }
 
     @Override
@@ -109,5 +124,13 @@ public class UserServiceImpl implements UserService {
         } catch (IOException e) {
             throw new FileStorageException("Could not upload picture " + fileName + ". Please try again!", e);
         }
+    }
+
+    private String getUserAuthority(UserEntity user) {
+        List<String> authorities = user.getAuthorities().stream()
+                .map(AuthorityEntity::getAuthority)
+                .collect(Collectors.toList());
+        if (authorities.contains("ROLE_ADMIN")) return "teacher";
+        return "student";
     }
 }

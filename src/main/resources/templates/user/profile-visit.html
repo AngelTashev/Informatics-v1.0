@@ -15,13 +15,16 @@
                 <img th:unless="*{profilePictureString == ''}" class="rounded-circle" th:src="*{'data:image/jpg;base64,'+ profilePictureString}" />
                 <!-- badge -->
                 <div class="rank-label-container">
-                    <span class="label label-default rank-label">Teacher</span>
+                    <span class="label label-default rank-label" th:text="${#strings.capitalize(userVisitView.authority)}">authority</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="row m-1">
         <h1 th:text="|*{fullName}|">Full name</h1><h1 th:text="|: (*{username})|">Username</h1>
+    </div>
+    <div class="row m-1">
+        <h5 th:unless="*{phrase == null}" th:text="*{phrase}" class="font-italic">Phrase</h5>
     </div>
 </div>
 </body>

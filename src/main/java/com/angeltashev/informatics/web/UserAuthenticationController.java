@@ -30,10 +30,10 @@ public class UserAuthenticationController {
         return "user/login";
     }
 
-    @PostMapping("/login")
-    public String confirmLoginForm() {
-        return "redirect:/";
-    }
+//    @PostMapping("/login")
+//    public String confirmLoginForm() {
+//        return "redirect:/home";
+//    }
 
     @GetMapping("/register")
     public String getRegisterForm(Model model) {
