@@ -35,7 +35,7 @@
             </th:block>
             <th:block sec:authorize="isAuthenticated()">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item"><a th:href="@{/home}" class="nav-link"><span class="glyphicon" th:text="| ${#authentication.name}|"></span></a>
+                    <li class="nav-item"><a th:href="@{/users/id}" class="nav-link"><span class="glyphicon" th:text="| ${#authentication.name}|"></span></a>
                     </li>
                     <li class="nav-item"><a th:href="@{/logout}" class="nav-link"><span class="glyphicon"></span>Logout</a>
                     </li>

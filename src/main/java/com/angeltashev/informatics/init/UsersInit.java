@@ -4,10 +4,12 @@ import com.angeltashev.informatics.user.model.UserEntity;
 import com.angeltashev.informatics.user.repository.AuthorityRepository;
 import com.angeltashev.informatics.user.repository.UserRepository;
 import com.angeltashev.informatics.user.service.AuthorityProcessingService;
+import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +20,8 @@ public class UsersInit implements CommandLineRunner {
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityProcessingService authorityProcessingService;
+
+    private final UserService userService;
 
     private final UserRepository userRepository;
     private final AuthorityRepository authorityRepository;

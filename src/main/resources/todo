@@ -1,7 +1,8 @@
 validations +register
 home page
-login page
+login page + (remember password needs implementation)
 logout page +++
+register page +++
 security
 download file
 upload file +++

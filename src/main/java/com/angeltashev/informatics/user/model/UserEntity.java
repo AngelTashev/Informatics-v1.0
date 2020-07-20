@@ -58,6 +58,11 @@ public class UserEntity implements UserDetails {
     @Column(name = "phrase")
     private String phrase;
 
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "profile_picture")
+    private byte[] profilePicture;
+
 
     // Security
     @Override

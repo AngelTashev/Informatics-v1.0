@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"/>
+    <link rel="stylesheet" th:href="@{/css/profile.css}"/>
+</head>
+<body>
+<th:block th:include="~{/fragments/nav}"/>
+<div th:object="${userView}" class="container">
+    <div class="row">
+        <div class="profile-header-container">
+            <div class="profile-header-img">
+                <img th:if="*{profilePictureString == ''}" class="rounded-circle" th:src="@{/img/default-pic.png}" />
+                <img th:unless="*{profilePictureString == ''}" class="rounded-circle" th:src="*{'data:image/jpg;base64,'+ profilePictureString}" />
+                <!-- badge -->
+                <div class="rank-label-container">
+                    <span class="label label-default rank-label">Teacher</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3 ml-3 ml-4 mb-1">
+        <h1 th:text="*{username}">Username</h1>
+    </div>
+    <div class="row p-sm-5 profile-container">
+        <h3 th:text="*{email}">Email: <span th:text="*{email}">email address</span></h3>
+    </div>
+    <form th:action="@{/users/id/upload-picture}" th:method="POST" enctype="multipart/form-data" style="margin-left: 300px; margin-top: 100px;">
+        <input type="file" id="file" name="file">
+        <input type="submit">
+    </form>
+</div>
+</body>
+</html>

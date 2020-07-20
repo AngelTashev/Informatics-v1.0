@@ -21,7 +21,7 @@ import static com.angeltashev.informatics.constants.ApplicationParameters.BINDIN
 @AllArgsConstructor
 @Controller
 @RequestMapping("/users")
-public class UserController {
+public class UserAuthenticationController {
 
     private final UserService userService;
 

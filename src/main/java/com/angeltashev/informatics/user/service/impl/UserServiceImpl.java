@@ -1,17 +1,26 @@
 package com.angeltashev.informatics.user.service.impl;
 
+import com.angeltashev.informatics.file.exception.FileStorageException;
+import com.angeltashev.informatics.file.model.DBFile;
 import com.angeltashev.informatics.user.model.UserEntity;
 import com.angeltashev.informatics.user.model.binding.UserDTO;
 import com.angeltashev.informatics.user.model.binding.UserRegisterBindingModel;
+import com.angeltashev.informatics.user.model.view.UserProfileViewModel;
 import com.angeltashev.informatics.user.repository.UserRepository;
 import com.angeltashev.informatics.user.service.AuthorityProcessingService;
 import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Base64;
+import java.util.Optional;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -37,6 +46,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserProfileViewModel getUserProfile(String username) {
+        UserEntity userEntity = this.userRepository.findByUsername(username).orElse(new UserEntity());
+        UserProfileViewModel userProfileViewModel = this.modelMapper.map(
+                userEntity,
+                UserProfileViewModel.class
+        );
+        byte[] profilePicture = userEntity.getProfilePicture();
+        String profilePictureString = "";
+        if (profilePicture != null) {
+            profilePictureString = Base64.getEncoder().encodeToString(userEntity.getProfilePicture());
+        }
+        userProfileViewModel.setProfilePictureString(profilePictureString);
+        return userProfileViewModel;
+    }
+
+    @Override
     public UserDTO findByUsername(String username) {
         UserEntity user = this.userRepository.findByUsername(username).orElse(null);
         return user != null ? this.modelMapper.map(user, UserDTO.class) : null;
@@ -46,5 +71,24 @@ public class UserServiceImpl implements UserService {
     public UserDTO findByEmail(String email) {
         UserEntity user = this.userRepository.findByEmail(email).orElse(null);
         return user != null ? this.modelMapper.map(user, UserDTO.class) : null;
+    }
+
+    @Override
+    public void uploadPicture(String username, MultipartFile file) throws FileStorageException {
+        // TODO Remove username param; Fix file storage exception
+        UserEntity user = this.userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("An error occured."));
+
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+        try {
+            if (fileName.contains("..")) {
+                throw new FileStorageException("Filename contains invalid characters!");
+            }
+
+            user.setProfilePicture(file.getBytes());
+            this.userRepository.save(user);
+        } catch (IOException e) {
+            throw new FileStorageException("Could not upload picture " + fileName + ". Please try again!", e);
+        }
     }
 }
