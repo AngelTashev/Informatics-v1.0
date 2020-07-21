@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Assignment</title>
+    <th:block th:include="~{fragments/head}"/>
+</head>
+<body>
+<th:block th:include="~{fragments/nav}"/>
+
+<h1 class="m-auto" th:text="${assignmentView.name}"></h1>
+<h1 class="m-auto" th:text="${assignmentView.description}"></h1>
+<h1 class="m-auto" th:text="${assignmentView.dueDate}"></h1>
+
+<th:block th:include="~{fragments/footer}"/>
+</body>
+</html>

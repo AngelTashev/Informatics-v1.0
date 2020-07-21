@@ -5,6 +5,7 @@ error handling - user page +++
 validations +register
 login page + (remember password needs implementation)
 home page +
+assignments +
 edit user details page
 change all texts
 security

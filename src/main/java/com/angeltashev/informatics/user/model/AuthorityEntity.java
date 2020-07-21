@@ -17,10 +17,10 @@ public class AuthorityEntity implements GrantedAuthority {
     @Id
     @GeneratedValue(generator = "uuid-string")
     @GenericGenerator(name = "uuid-string", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", nullable = false, updatable = false)
+    @Column(name = "id", nullable = false, unique = true, updatable = false)
     private String id;
 
     @NonNull
-    @Column(name = "authority", nullable = false, unique = true, updatable = false)
+    @Column(name = "authority", nullable = false)
     private String authority;
 }

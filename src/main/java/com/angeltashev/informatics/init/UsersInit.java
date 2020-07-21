@@ -1,5 +1,7 @@
 package com.angeltashev.informatics.init;
 
+import com.angeltashev.informatics.assignment.model.AssignmentEntity;
+import com.angeltashev.informatics.assignment.repository.AssignmentRepository;
 import com.angeltashev.informatics.user.model.UserEntity;
 import com.angeltashev.informatics.user.repository.AuthorityRepository;
 import com.angeltashev.informatics.user.repository.UserRepository;
@@ -25,6 +27,7 @@ public class UsersInit implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final AuthorityRepository authorityRepository;
+    private final AssignmentRepository assignmentRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -71,6 +74,14 @@ public class UsersInit implements CommandLineRunner {
             pesho.setRegistrationDate(LocalDateTime.now());
             pesho.setActive(true);
             this.userRepository.saveAndFlush(pesho);
+        }
+        if (this.assignmentRepository.count() == 0) {
+            AssignmentEntity springAssignment = new AssignmentEntity();
+            springAssignment.setName("Spring Database");
+            springAssignment.setDescription("Create a basic database with Spring MVC");
+            springAssignment.setUser(this.userRepository.findByUsername("pesho_ivanov.2020").orElse(null));
+            springAssignment.setDueDate(LocalDateTime.of(2020, 8, 5, 12, 0));
+            this.assignmentRepository.saveAndFlush(springAssignment);
         }
     }
 }

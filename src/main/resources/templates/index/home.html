@@ -14,11 +14,60 @@
 
     <!-- Calendar and assignments -->
     <div class="row m-5">
-        <div class="m-auto" style="width: 45%;">
+        <div class="m-auto position-relative" style="width: 45%;">
             <div data-tockify-component="mini" data-tockify-calendar="angel.tashev"></div>
         </div>
-        <div class="ml-auto mr-auto" style="width: 45%; border: #ffc61d 2px solid">
-            <h3 class="m-4">Assignments pending</h3>
+        <div class="ml-auto mr-auto position-relative" style="width: 45%; max-height: 600px; border: #ffc61d 2px solid">
+            <h3 class="m-4">Pending assignments</h3>
+            <div class="overflow-auto" style="max-height: 450px;">
+                <h5 class="m-auto" th:if="*{assignments.size() == 0}" th:text="'You are all done! :D'" style="color: #888888; width: 90%"></h5>
+                <div th:unless="*{assignments.size() == 0}" th:each="assignment : *{assignments}">
+                    <div class="rounded m-4 p-2" style="background-color: #027373;">
+                        <a class="m-2" th:href="@{/users/my-profile/assignments/{id}(id=${assignment.id})}" th:text="${assignment.name}" style="color: white; font-size: 22px;">   </a>
+                        <div class="rounded mt-2 p-2" style="background-color: #F29F05;">
+                            <h6 class="m-2" th:text="${#strings.abbreviate(assignment.description, 60)}" style="color: white"></h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:unless="*{assignments.size() == 0}" th:each="assignment : *{assignments}">
+                    <div class="rounded m-4 p-2" style="background-color: #027373;">
+                        <h5 class="m-2" th:text="${#strings.abbreviate(assignment.name, 40)}" style="color: white"></h5>
+                        <div class="rounded mt-3 p-2" style="background-color: #F29F05;">
+                            <h6 class="m-2" th:text="${#strings.abbreviate('Hello from the other side, I must have ..... a thousand times!!', 60)}" style="color: white"></h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:unless="*{assignments.size() == 0}" th:each="assignment : *{assignments}">
+                    <div class="rounded m-4 p-2" style="background-color: #027373;">
+                        <h5 class="m-2" th:text="${assignment.name}" style="color: white"></h5>
+                        <div class="rounded mt-3 p-2" style="background-color: #F29F05;">
+                            <h6 class="m-2" th:text="${#strings.abbreviate(assignment.description, 60)}" style="color: white"></h6>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div th:unless="*{assignments.size() == 0}" th:each="assignment : *{assignments}">
+                    <div class="rounded m-4 p-2" style="background-color: #027373;">
+                        <h5 class="m-2" th:text="${assignment.name}" style="color: white"></h5>
+                        <div class="rounded mt-3 p-2" style="background-color: #F29F05;">
+                            <h6 class="m-2" th:text="${#strings.abbreviate(assignment.description, 60)}" style="color: white"></h6>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div th:unless="*{assignments.size() == 0}" th:each="assignment : *{assignments}">
+                    <div class="rounded m-4 p-2" style="background-color: #027373;">
+                        <h5 class="m-2" th:text="${assignment.name}" style="color: white"></h5>
+                        <div class="rounded mt-3 p-2" style="background-color: #F29F05;">
+                            <h6 class="m-2" th:text="${#strings.abbreviate(assignment.description, 60)}" style="color: white"></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!--        <h1>Events</h1>-->
     </div>

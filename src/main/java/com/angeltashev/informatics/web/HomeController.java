@@ -1,5 +1,6 @@
 package com.angeltashev.informatics.web;
 
+import com.angeltashev.informatics.user.model.view.UserHomeViewModel;
 import com.angeltashev.informatics.user.repository.UserRepository;
 import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,8 @@ public class HomeController {
     @GetMapping("/home")
     public String getHome(@AuthenticationPrincipal Principal principal, Model model) {
         model.addAttribute("user", principal);
-        model.addAttribute("userHomeView", this.userService.getUserHomeDetails(principal.getName()));
+        UserHomeViewModel userHomeViewModel = this.userService.getUserHomeDetails(principal.getName());
+        model.addAttribute("userHomeView", userHomeViewModel);
         return "index/home";
     }
 }

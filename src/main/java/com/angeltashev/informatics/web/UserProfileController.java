@@ -1,5 +1,6 @@
 package com.angeltashev.informatics.web;
 
+import com.angeltashev.informatics.exceptions.PageNotFoundException;
 import com.angeltashev.informatics.file.exception.FileStorageException;
 import com.angeltashev.informatics.user.model.view.UserProfileViewModel;
 import com.angeltashev.informatics.user.model.view.UserVisitViewModel;
@@ -41,9 +42,10 @@ public class UserProfileController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{username}")
-    public String getUserByUsername(@PathVariable("username") String username, Model model) throws UsernameNotFoundException {
+    public String getUserByUsername(@PathVariable("username") String username, Model model) throws PageNotFoundException {
+        // TODO Fix redirect to home page with losing authentication when searching for a wrong username
         UserVisitViewModel user = this.userService.getUserVisitProfile(username);
-        if (user == null) throw new UsernameNotFoundException("Username is not found");
+        if (user == null) throw new PageNotFoundException("Username is not found");
         model.addAttribute("userVisitView", user);
         return "user/profile-visit";
     }
@@ -56,13 +58,6 @@ public class UserProfileController {
 
         this.userService.uploadPicture(principal.getName(), file);
         return "redirect:/users/my-profile";
-    }
-
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler({UsernameNotFoundException.class})
-    public ModelAndView userNotFound() {
-        ModelAndView modelAndView = new ModelAndView("user/user-404");
-        return modelAndView;
     }
 
 }

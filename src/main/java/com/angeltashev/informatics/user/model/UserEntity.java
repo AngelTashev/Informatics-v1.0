@@ -1,5 +1,6 @@
 package com.angeltashev.informatics.user.model;
 
+import com.angeltashev.informatics.assignment.model.AssignmentEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +25,7 @@ public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(generator = "uuid-string")
     @GenericGenerator(name = "uuid-string", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", nullable = false, updatable = false)
+    @Column(name = "id", nullable = false, unique = true, updatable = false)
     private String id;
 
     @Column(name = "full_name", nullable = false)
@@ -46,9 +47,8 @@ public class UserEntity implements UserDetails {
     @Column(name = "active")
     private boolean active;
 
-    @OneToMany(
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.DETACH
+    @ManyToMany(
+            fetch = FetchType.EAGER
     )
     private Set<AuthorityEntity> authorities = new HashSet<>();
 
@@ -60,6 +60,13 @@ public class UserEntity implements UserDetails {
 
     @Column(name = "phrase")
     private String phrase;
+
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            mappedBy = "user",
+            targetEntity = AssignmentEntity.class
+    )
+    private Set<AssignmentEntity> assignments;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)

@@ -92,6 +92,7 @@ public class UserServiceImpl implements UserService {
                 userEntity,
                 UserHomeViewModel.class
         );
+        System.out.println();
         return userHomeViewModel;
     }
 
