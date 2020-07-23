@@ -1,5 +1,6 @@
 package com.angeltashev.informatics.user.service.impl;
 
+import com.angeltashev.informatics.exceptions.PageNotFoundException;
 import com.angeltashev.informatics.file.exception.FileStorageException;
 import com.angeltashev.informatics.user.model.AuthorityEntity;
 import com.angeltashev.informatics.user.model.UserEntity;
@@ -66,10 +67,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserVisitViewModel getUserVisitProfile(String username) throws UsernameNotFoundException {
+    public UserVisitViewModel getUserVisitProfile(String username) throws PageNotFoundException {
 
         UserEntity userEntity = this.userRepository.findByUsername(username).orElse(null);
-        if (userEntity == null) throw new UsernameNotFoundException("Username is not found");
+        if (userEntity == null) throw new PageNotFoundException("Username is not found");
         UserVisitViewModel userVisitViewModel = this.modelMapper.map(
                 userEntity,
                 UserVisitViewModel.class
