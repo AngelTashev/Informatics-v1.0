@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @AllArgsConstructor
@@ -23,6 +25,8 @@ public class AssignmentServiceImpl implements AssignmentService {
         AssignmentEntity assignmentEntity = this.assignmentRepository.findById(id).orElse(null);
         if (assignmentEntity == null) return null;
         if (!assignmentEntity.getUser().getUsername().equals(username)) return null;
-        return this.modelMapper.map(assignmentEntity, AssignmentDetailsViewModel.class);
+        AssignmentDetailsViewModel assignmentDetailsViewModel = this.modelMapper.map(assignmentEntity, AssignmentDetailsViewModel.class);
+        assignmentDetailsViewModel.setDueDate(assignmentEntity.getDueDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")));
+        return assignmentDetailsViewModel;
     }
 }

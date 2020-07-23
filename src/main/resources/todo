@@ -6,6 +6,7 @@ validations +register
 login page + (remember password needs implementation)
 home page +
 assignments +
+root admin panel
 edit user details page
 change all texts
 security
@@ -14,5 +15,9 @@ error handling - default error page
 async
 logger
 unit testing
+cache users
+2 interceptors
+scheduling
+
 
 #SET GLOBAL max_allowed_packet=268435456;   for sql packets

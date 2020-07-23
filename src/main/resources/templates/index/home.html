@@ -19,7 +19,7 @@
         </div>
         <div class="ml-auto mr-auto position-relative" style="width: 45%; max-height: 600px; border: #ffc61d 2px solid">
             <h3 class="m-4">Pending assignments</h3>
-            <div class="overflow-auto" style="max-height: 450px;">
+            <div class="overflow-auto" style="max-height: 450px; min-height: 350px">
                 <h5 class="m-auto" th:if="*{assignments.size() == 0}" th:text="'You are all done! :D'" style="color: #888888; width: 90%"></h5>
                 <div th:unless="*{assignments.size() == 0}" th:each="assignment : *{assignments}">
                     <div class="rounded m-4 p-2" style="background-color: #027373;">

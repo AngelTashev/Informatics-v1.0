@@ -44,7 +44,6 @@ public class UserServiceImpl implements UserService {
         user.setAuthorities(Set.of(authorityProcessingService.getStudentAuthority()));
         user.setActive(true);
         user.setRegistrationDate(LocalDateTime.now());
-        //TODO Fix duplicate entry for authority_id; cannot have more than one student
         this.userRepository.saveAndFlush(user);
         return true;
     }

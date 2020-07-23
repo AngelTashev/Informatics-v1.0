@@ -1,0 +1,61 @@
+.assignment-title {
+}
+
+.submit-button {
+    font-size: 24px;
+    /*padding: 10px;*/
+    background-color: #F29F05;
+    color: white;
+    font-weight: bold;
+    padding: 6px;
+}
+
+.resource-link {
+    color: #F29F05;
+    font-size: 24px;
+    font-weight: bold;
+}
+.resource-link:hover {
+    color: #fdb019;
+    text-decoration: none;
+}
+
+.assignment-description {
+    font-style: italic;
+    /*border: #F29F05 2px solid;*/
+    width: 92%;
+    height: 400px;
+    /*background-color: #036161;*/
+}
+
+.assignment-description-container {
+    /*border: #F29F05 2px solid;*/
+    background-color: #024959;
+    min-width: 98%;
+    min-height: 700px;
+}
+
+.assignment-description-container p {
+    font-size: 18px;
+    color: white;
+}
+
+.assignment-container {
+    /*background-color: #027373;*/
+    min-width: 98%;
+    min-height: 600px;
+}
+
+.assignment-date {
+    border: #F29F05 2px solid;
+    color: white;
+    background-color: #024959;
+}
+
+.assignment-submit {
+
+}
+
+.assignment-resources {
+    
+}
