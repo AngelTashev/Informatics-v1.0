@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AssignmentDetailsViewModel {
 
+    private String id;
     private String name;
     private String description;
     private String dueDate;
     private byte[] resources;
-    private byte[] solution;
+    private byte[] submission;
 }

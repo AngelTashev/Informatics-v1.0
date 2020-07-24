@@ -39,9 +39,13 @@ public class AssignmentEntity {
     @Column(name = "due_date", nullable = false)
     private LocalDateTime dueDate;
 
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
     @Column(name = "submission")
     private byte[] submission;
 
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
     @Column(name = "resource")
     private byte[] resource;
 

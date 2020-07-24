@@ -29,20 +29,24 @@
                     </div>
 
                     <div class="row mt-4">
-                        <h3 class="col">Status: <span>Not submitted!</span></h3>
-                        <img class="col" th:src="@{/img/not-submitted.png}" style="max-width: 8%; height: auto">
+                        <h3 class="col">Status:
+                            <span th:if="${assignmentView.submission == null}">Not submitted!</span>
+                            <span th:unless="${assignmentView.submission == null}">Submitted!</span>
+                        </h3>
+                        <img th:if="${assignmentView.submission == null}" class="col" th:src="@{/img/not-submitted.png}" style="max-width: 8%; height: auto">
+                        <img th:unless="${assignmentView.submission == null}" class="col" th:src="@{/img/submitted.png}" style="max-width: 8%; height: auto">
                     </div>
 
 
 
                     <div class="row align-content-end p-3">
                         <div>
-                            <form href="" method="POST" class="m-3">
+                            <form th:action="@{/users/my-profile/assignments/{id}(id=${assignmentView.id})}" enctype="multipart/form-data" th:method="POST" class="m-3">
                                 <div class="row">
-                                    <label for="homework" style="font-size: 24px;">Submit your work here</label>
+                                    <label for="submission" style="font-size: 24px;">Submit your work here</label>
                                 </div>
                                 <div class="row">
-                                    <input class="mt-3" style="color: #0c5460" type="file" id="homework" name="homework">
+                                    <input class="mt-3" style="color: #0c5460" type="file" id="submission" name="submission ">
                                     <button class="rounded submit-button">Submit</button>
                                 </div>
                             </form>
