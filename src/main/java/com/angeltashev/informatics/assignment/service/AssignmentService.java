@@ -1,5 +1,6 @@
 package com.angeltashev.informatics.assignment.service;
 
+import com.angeltashev.informatics.assignment.model.AssignmentAddBindingModel;
 import com.angeltashev.informatics.assignment.model.view.AssignmentDetailsViewModel;
 import com.angeltashev.informatics.assignment.model.view.AssignmentHomeViewModel;
 import com.angeltashev.informatics.file.exception.FileStorageException;
@@ -12,4 +13,6 @@ public interface AssignmentService {
     AssignmentDetailsViewModel getAssignmentByIdAndUser(String id, String username);
 
     boolean uploadSubmission(String assignmentId, MultipartFile submission) throws FileStorageException;
+
+    boolean addAssignment(AssignmentAddBindingModel assignment);
 }

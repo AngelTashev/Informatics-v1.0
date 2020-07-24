@@ -23,7 +23,7 @@
                 <h5 class="m-auto" th:if="*{assignments.size() == 0}" th:text="'You are all done! :D'" style="color: #888888; width: 90%"></h5>
                 <div th:unless="*{assignments.size() == 0}" th:each="assignment : *{assignments}">
                     <div class="rounded m-4 p-2" style="background-color: #027373;">
-                        <a class="m-2" th:href="@{/users/my-profile/assignments/{id}(id=${assignment.id})}" th:text="${assignment.name}" style="color: white; font-size: 22px;">   </a>
+                        <a class="m-2" th:href="@{/users/my-profile/assignments/{id}(id=${assignment.id})}" th:text="${assignment.name}" style="color: white; font-size: 22px;"></a>
                         <div class="rounded mt-2 p-2" style="background-color: #F29F05;">
                             <h6 class="m-2" th:text="${#strings.abbreviate(assignment.description, 60)}" style="color: white"></h6>
                         </div>

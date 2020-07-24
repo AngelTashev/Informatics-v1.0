@@ -1,11 +1,13 @@
 package com.angeltashev.informatics.assignment.service.impl;
 
 import com.angeltashev.informatics.assignment.exception.InvalidArgumentIdException;
+import com.angeltashev.informatics.assignment.model.AssignmentAddBindingModel;
 import com.angeltashev.informatics.assignment.model.AssignmentEntity;
 import com.angeltashev.informatics.assignment.model.view.AssignmentDetailsViewModel;
 import com.angeltashev.informatics.assignment.repository.AssignmentRepository;
 import com.angeltashev.informatics.assignment.service.AssignmentService;
 import com.angeltashev.informatics.file.exception.FileStorageException;
+import com.angeltashev.informatics.user.model.binding.UserAssignmentAddBindingModel;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -54,5 +56,13 @@ public class AssignmentServiceImpl implements AssignmentService {
             throw new FileStorageException("Could not upload picture " + fileName + ". Please try again!", e);
         }
         return true;
+    }
+
+    @Override
+    public boolean addAssignment(AssignmentAddBindingModel assignment) {
+        for(String username : assignment.getUsers()) {
+
+        }
+        return false;
     }
 }

@@ -6,6 +6,7 @@ import com.angeltashev.informatics.assignment.service.AssignmentService;
 import com.angeltashev.informatics.exceptions.PageNotFoundException;
 import com.angeltashev.informatics.file.exception.FileStorageException;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ public class AssignmentController {
 
     private final AssignmentService assignmentService;
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     public String getAssignmentById(@PathVariable("id") String id, Principal principal, Model model) {
         AssignmentDetailsViewModel assignmentView = this.assignmentService.getAssignmentByIdAndUser(id, principal.getName());
@@ -31,9 +33,16 @@ public class AssignmentController {
         return "assignment/assignment-details";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}")
     public String uploadSubmission(@RequestParam("submission") MultipartFile submission, @PathVariable("id") String assignmentId) throws FileStorageException {
         this.assignmentService.uploadSubmission(assignmentId, submission);
         return "redirect:/home";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/add")
+    public String getAddAssignmentForm() {
+        return "assignment/assignment-add";
     }
 }

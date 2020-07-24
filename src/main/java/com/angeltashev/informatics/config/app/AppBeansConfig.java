@@ -2,6 +2,8 @@ package com.angeltashev.informatics.config.app;
 
 import com.angeltashev.informatics.assignment.model.AssignmentEntity;
 import com.angeltashev.informatics.assignment.model.view.AssignmentHomeViewModel;
+import com.angeltashev.informatics.user.model.UserEntity;
+import com.angeltashev.informatics.user.model.binding.UserAssignmentAddBindingModel;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.TypeMap;
@@ -21,6 +23,11 @@ public class AppBeansConfig {
                 .addMapping(AssignmentEntity::getId,AssignmentHomeViewModel::setId)
                 .addMapping(AssignmentEntity::getName, AssignmentHomeViewModel::setName)
                 .addMapping(AssignmentEntity::getDescription, AssignmentHomeViewModel::setDescription);
+
+        // TODO
+//        TypeMap<UserAssignmentAddBindingModel, UserEntity> userAssignmentAddBindingMap = modelMapper
+//                .createTypeMap(UserAssignmentAddBindingModel.class, UserEntity.class)
+//                .addMapping(UserAssignmentAddBindingModel::getUsername, UserEntity::setUsername);
 
         assignmentHomeViewMap.includeBase(AssignmentEntity.class, AssignmentHomeViewModel.class);
         return modelMapper;
