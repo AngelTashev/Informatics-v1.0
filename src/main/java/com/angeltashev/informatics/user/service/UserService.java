@@ -1,6 +1,7 @@
 package com.angeltashev.informatics.user.service;
 
 import com.angeltashev.informatics.file.exception.FileStorageException;
+import com.angeltashev.informatics.user.model.UserEntity;
 import com.angeltashev.informatics.user.model.binding.UserAssignmentAddBindingModel;
 import com.angeltashev.informatics.user.model.binding.UserDTO;
 import com.angeltashev.informatics.user.model.binding.UserRegisterBindingModel;
@@ -25,4 +26,6 @@ public interface UserService {
 
     List<UserAssignmentAddBindingModel> getUserAssignmentAddModels();
     void uploadPicture(String username, MultipartFile file) throws FileStorageException;
+
+    UserDTO getUserDTO(String username);
 }

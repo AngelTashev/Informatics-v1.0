@@ -31,7 +31,7 @@
     </div>
 
     <form th:action="@{/users/upload-picture}" th:method="POST" enctype="multipart/form-data" style="margin-left: 300px; margin-top: 100px;">
-        <input type="file" id="file" name="file">
+        <input type="file" id="file" name="file" accept="image/x-png,image/jpeg,image/jpg">
         <input type="submit">
     </form>
 </div>

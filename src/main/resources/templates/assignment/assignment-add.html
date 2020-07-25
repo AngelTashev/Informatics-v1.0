@@ -23,9 +23,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-9 col-lg-8 mx-auto">
-              <h3 class="login-heading mb-4">Time for some assignments!</h3>
-              <form th:object="${assignmentModel}" th:action="@{/users/my-profile/assignments/add}" th:method="POST">
-
+              <form th:object="${assignmentModel}" enctype="multipart/form-data" th:action="@{/users/my-profile/assignments/add}" th:method="POST">
                 <div class="mx-auto mb-1" th:each="e : ${#fields.errors('name')}">
                   <small th:text="${e}" class="text-danger"></small>
                 </div>
@@ -45,7 +43,7 @@
                 </div>
                 <div class="form-label-group">
                   <textarea th:field="*{description}" style="min-height: 200px;" type="text" id="description" name="description" class="form-control" placeholder="Description" required></textarea>
-<!--                  <label for="description">Description</label>-->
+                  <!--                  <label for="description">Description</label>-->
                 </div>
 
                 <!-- Student selection -->
@@ -58,8 +56,22 @@
                     <option th:each="user : ${usernameModel}" th:value="${user.username}" th:text="|${user.fullName} (${user.username})|"></option>
                   </select>
                 </div>
+
+                <!-- Due date -->
+                <label for="dueDate">Select due date</label>
+                <div class="row m-3">
+                  <input th:field="*{dueDate}" class="mt-3" style="color: #0c5460" type="datetime-local" id="dueDate" name="dueDate">
+                </div>
+
+                <!-- Optional resource selection -->
+                <label for="resources">Add resources</label>
+                <div class="row m-3">
+                  <input class="mt-3" style="color: #0c5460" type="file" id="resources" name="resources">
+                </div>
+
                 <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Give out assignments!</button>
               </form>
+              <h3 class="login-heading mb-4">Time for some assignments!</h3>
             </div>
           </div>
         </div>

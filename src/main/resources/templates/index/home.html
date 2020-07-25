@@ -29,44 +29,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div th:unless="*{assignments.size() == 0}" th:each="assignment : *{assignments}">
-                    <div class="rounded m-4 p-2" style="background-color: #027373;">
-                        <h5 class="m-2" th:text="${#strings.abbreviate(assignment.name, 40)}" style="color: white"></h5>
-                        <div class="rounded mt-3 p-2" style="background-color: #F29F05;">
-                            <h6 class="m-2" th:text="${#strings.abbreviate('Hello from the other side, I must have ..... a thousand times!!', 60)}" style="color: white"></h6>
-                        </div>
-                    </div>
-                </div>
-
-                <div th:unless="*{assignments.size() == 0}" th:each="assignment : *{assignments}">
-                    <div class="rounded m-4 p-2" style="background-color: #027373;">
-                        <h5 class="m-2" th:text="${assignment.name}" style="color: white"></h5>
-                        <div class="rounded mt-3 p-2" style="background-color: #F29F05;">
-                            <h6 class="m-2" th:text="${#strings.abbreviate(assignment.description, 60)}" style="color: white"></h6>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div th:unless="*{assignments.size() == 0}" th:each="assignment : *{assignments}">
-                    <div class="rounded m-4 p-2" style="background-color: #027373;">
-                        <h5 class="m-2" th:text="${assignment.name}" style="color: white"></h5>
-                        <div class="rounded mt-3 p-2" style="background-color: #F29F05;">
-                            <h6 class="m-2" th:text="${#strings.abbreviate(assignment.description, 60)}" style="color: white"></h6>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div th:unless="*{assignments.size() == 0}" th:each="assignment : *{assignments}">
-                    <div class="rounded m-4 p-2" style="background-color: #027373;">
-                        <h5 class="m-2" th:text="${assignment.name}" style="color: white"></h5>
-                        <div class="rounded mt-3 p-2" style="background-color: #F29F05;">
-                            <h6 class="m-2" th:text="${#strings.abbreviate(assignment.description, 60)}" style="color: white"></h6>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <!--        <h1>Events</h1>-->

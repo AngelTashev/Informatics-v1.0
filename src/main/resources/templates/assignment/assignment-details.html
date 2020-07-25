@@ -25,7 +25,10 @@
                     <h3 class="assignment-date rounded p-2">Date due: <span th:text="${assignmentView.dueDate}"></span></h3>
 
                     <div class="row mt-3 ml-1">
-                        <a class="resource-link mt-4" href="">Resources</a>
+                        <div th:if="${assignmentView.resource != null}">
+                            <!-- TODO Make resource downloadable, fix this href (id)
+                            <a class="resource-link mt-4" th:href="@{/users/my-profile/assignments/{id}(id=${assignmentView.id})/download-res}">Resources</a>
+                        </div>
                     </div>
 
                     <div class="row mt-4">

@@ -144,4 +144,10 @@ public class UserServiceImpl implements UserService {
         if (authorities.contains("ROLE_ADMIN")) return "teacher";
         return "student";
     }
+
+    @Override
+    public UserDTO getUserDTO(String username) {
+        UserEntity user = this.userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username cannot be found"));
+        return this.modelMapper.map(user, UserDTO.class);
+    }
 }
