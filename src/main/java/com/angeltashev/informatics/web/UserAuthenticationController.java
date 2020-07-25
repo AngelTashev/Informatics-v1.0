@@ -4,6 +4,7 @@ import com.angeltashev.informatics.constants.ApplicationParameters;
 import com.angeltashev.informatics.user.model.binding.UserRegisterBindingModel;
 import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ public class UserAuthenticationController {
 
     private final UserService userService;
 
+    @PreAuthorize("isAnonymous()")
     @GetMapping("/login")
     public String getLoginForm() {
         return "user/login";
@@ -35,6 +37,7 @@ public class UserAuthenticationController {
 //        return "redirect:/home";
 //    }
 
+    @PreAuthorize("isAnonymous()")
     @GetMapping("/register")
     public String getRegisterForm(Model model) {
         if (!model.containsAttribute("registerModel")) {
@@ -43,6 +46,7 @@ public class UserAuthenticationController {
         return "user/register";
     }
 
+    @PreAuthorize("isAnonymous()")
     @PostMapping("/register")
     public String confirmRegisterForm(@Valid @ModelAttribute("registerModel") UserRegisterBindingModel registerModel,
                                       BindingResult bindingResult, RedirectAttributes redirectAttributes) {

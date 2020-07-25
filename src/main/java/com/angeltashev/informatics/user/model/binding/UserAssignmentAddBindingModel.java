@@ -8,4 +8,5 @@ import lombok.NoArgsConstructor;
 public class UserAssignmentAddBindingModel {
 
     private String username;
+    private String fullName;
 }

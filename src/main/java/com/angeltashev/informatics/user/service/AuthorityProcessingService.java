@@ -7,4 +7,6 @@ public interface AuthorityProcessingService {
     public void seedAuthorities();
 
     public AuthorityEntity getStudentAuthority();
+
+    public AuthorityEntity getRootAdminAuthority();
 }

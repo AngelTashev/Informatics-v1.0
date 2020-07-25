@@ -4,6 +4,7 @@ import com.angeltashev.informatics.exceptions.PageNotFoundException;
 import com.angeltashev.informatics.file.exception.FileStorageException;
 import com.angeltashev.informatics.user.model.AuthorityEntity;
 import com.angeltashev.informatics.user.model.UserEntity;
+import com.angeltashev.informatics.user.model.binding.UserAssignmentAddBindingModel;
 import com.angeltashev.informatics.user.model.binding.UserDTO;
 import com.angeltashev.informatics.user.model.binding.UserRegisterBindingModel;
 import com.angeltashev.informatics.user.model.view.UserHomeViewModel;
@@ -106,6 +107,15 @@ public class UserServiceImpl implements UserService {
     public UserDTO findByEmail(String email) {
         UserEntity user = this.userRepository.findByEmail(email).orElse(null);
         return user != null ? this.modelMapper.map(user, UserDTO.class) : null;
+    }
+
+    @Override
+    public List<UserAssignmentAddBindingModel> getUserAssignmentAddModels() {
+        return this.userRepository.findAll()
+                .stream()
+                .filter(user -> !user.getUsername().equals("root"))
+                .map(user -> this.modelMapper.map(user, UserAssignmentAddBindingModel.class))
+                .collect(Collectors.toList());
     }
 
     @Override

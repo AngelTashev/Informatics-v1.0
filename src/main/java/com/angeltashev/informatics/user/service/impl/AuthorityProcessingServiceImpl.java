@@ -23,4 +23,9 @@ public class AuthorityProcessingServiceImpl implements AuthorityProcessingServic
     public AuthorityEntity getStudentAuthority() {
         return this.authorityRepository.findByAuthority("ROLE_STUDENT");
     }
+
+    @Override
+    public AuthorityEntity getRootAdminAuthority() {
+        return this.authorityRepository.findByAuthority("ROLE_ROOT_ADMIN");
+    }
 }

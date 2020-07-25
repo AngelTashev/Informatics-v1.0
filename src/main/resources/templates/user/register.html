@@ -20,7 +20,7 @@
                         <div class="col-md-9 col-lg-8 mx-auto">
                             <h3 class="login-heading mb-4">Hey there! Welcome to the team!</h3>
                             <form th:object="${registerModel}" th:action="@{/users/register}" th:method="POST">
-
+                                <!-- TODO Fix errors not showing up -->
                                 <!--Full name-->
                                 <div class="mx-auto mb-1" th:each="e : ${#fields.errors('fullName')}">
                                     <small th:text="${e}" class="text-danger"></small>

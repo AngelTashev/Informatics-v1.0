@@ -1,18 +1,27 @@
 package com.angeltashev.informatics.web;
 
+import com.angeltashev.informatics.assignment.model.AssignmentAddBindingModel;
 import com.angeltashev.informatics.assignment.model.view.AssignmentDetailsViewModel;
 import com.angeltashev.informatics.assignment.model.view.AssignmentHomeViewModel;
 import com.angeltashev.informatics.assignment.service.AssignmentService;
+import com.angeltashev.informatics.constants.ApplicationParameters;
 import com.angeltashev.informatics.exceptions.PageNotFoundException;
 import com.angeltashev.informatics.file.exception.FileStorageException;
+import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.security.Principal;
+
+import static com.angeltashev.informatics.constants.ApplicationParameters.BINDING_RESULT_PATH;
 
 @AllArgsConstructor
 @Controller
@@ -20,6 +29,7 @@ import java.security.Principal;
 public class AssignmentController {
 
     private final AssignmentService assignmentService;
+    private final UserService userService;
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
@@ -28,7 +38,6 @@ public class AssignmentController {
         if (assignmentView == null) {
             throw new PageNotFoundException("Page cannot be found!");
         }
-        System.out.println();
         model.addAttribute("assignmentView", assignmentView);
         return "assignment/assignment-details";
     }
@@ -42,7 +51,26 @@ public class AssignmentController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/add")
-    public String getAddAssignmentForm() {
+    public String getAddAssignmentForm(Model model) {
+        if (!model.containsAttribute("assignmentModel") |
+                !model.containsAttribute("usernameModel")) {
+            model.addAttribute("assignmentModel", new AssignmentAddBindingModel());
+            model.addAttribute("usernameModel", this.userService.getUserAssignmentAddModels());
+        }
         return "assignment/assignment-add";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/add")
+    public String postAddAssignment(@Valid @ModelAttribute("assignmentModel") AssignmentAddBindingModel assignmentModel,
+                                    BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("assignmentModel", assignmentModel);
+            redirectAttributes.addFlashAttribute(BINDING_RESULT_PATH + "assignmentModel", bindingResult);
+            System.out.println();
+            return "redirect:/users/my-profile/assignments/add";
+        }
+        this.assignmentService.addAssignment(assignmentModel);
+        return "redirect:/home";
     }
 }

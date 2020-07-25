@@ -10,10 +10,10 @@
                 <li class="nav-item"><a th:href="@{/home}" class="nav-link">Home</a>
                 </li>
                 <th:block sec:authorize="isAuthenticated()">
-                    <li class="dropdown nav-item"> <a class="dropdown-toggle nav-item nav-link" data-toggle="dropdown" href="#">Homework<span class="caret"></span></a>
+                    <li class="dropdown nav-item"> <a class="dropdown-toggle nav-item nav-link" data-toggle="dropdown" href="#">Assignments<span class="caret"></span></a>
                         <ul
                                 class="dropdown-menu">
-                            <li class="nav-item dropdown-item"><a href="#" style="color: rgb(160, 160, 160);">Submit</a>
+                            <li sec:authorize="hasRole('ADMIN')" class="nav-item dropdown-item"><a th:href="@{/users/my-profile/assignments/add}" style="color: rgb(160, 160, 160);">Create</a>
                             </li>
                             <li class="nav-item dropdown-item"><a href="#" style="color: rgb(160, 160, 160);">Check</a>
                             </li>

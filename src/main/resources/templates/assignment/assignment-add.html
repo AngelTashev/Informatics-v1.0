@@ -4,6 +4,11 @@
   <title>Add assignment</title>
   <th:block th:include="~{fragments/head}"></th:block>
   <link rel="stylesheet" th:href="@{/css/login.css}">
+  <script>
+    $(document).ready(function() {
+      $('#ingredients').multiselect();
+    });
+  </script>
 </head>
 <body>
     <th:block th:include="~{/fragments/nav}"/>
@@ -18,23 +23,42 @@
         <div class="container">
           <div class="row">
             <div class="col-md-9 col-lg-8 mx-auto">
-              <h3 class="login-heading mb-4">Let's go!</h3>
-              <form th:action="@{/users/login}" th:method="POST">
-                <div th:if="${param.error}" class="alert alert-error">
-                  Invalid username or password.
+              <h3 class="login-heading mb-4">Time for some assignments!</h3>
+              <form th:object="${assignmentModel}" th:action="@{/users/my-profile/assignments/add}" th:method="POST">
+
+                <div class="mx-auto mb-1" th:each="e : ${#fields.errors('name')}">
+                  <small th:text="${e}" class="text-danger"></small>
+                </div>
+
+                <!-- Title -->
+                <div class="mx-auto mb-1" th:each="e : ${#fields.errors('name')}">
+                  <small th:text="${e}" class="text-danger"></small>
                 </div>
                 <div class="form-label-group">
-                  <input type="text" id="name" name="name" class="form-control" placeholder="Title" required autofocus>
+                  <input th:field="*{name}" type="text" id="name" name="name" class="form-control" placeholder="Title" required autofocus>
                   <label for="name">Title</label>
                 </div>
 
+                <!-- Description -->
+                <div class="mx-auto mb-1" th:each="e : ${#fields.errors('description')}">
+                  <small th:text="${e}" class="text-danger"></small>
+                </div>
                 <div class="form-label-group">
-                  <textarea style="min-height: 200px;" type="text" id="description" name="password" class="form-control" placeholder="Description" required></textarea>
+                  <textarea th:field="*{description}" style="min-height: 200px;" type="text" id="description" name="description" class="form-control" placeholder="Description" required></textarea>
 <!--                  <label for="description">Description</label>-->
                 </div>
-                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in</button>
-                <div class="text-center">
-                  <a class="small" href="#">Forgot password?</a></div>
+
+                <!-- Student selection -->
+                <div class="mx-auto mb-1" th:each="e : ${#fields.errors('users')}">
+                  <small th:text="${e}" class="text-danger"></small>
+                </div>
+                <label for="users">Select students:</label>
+                <div class="form-label-group">
+                  <select th:field="${assignmentModel.users}" style="min-height: 150px;" class="form-control" id="users" name="users" multiple="multiple">
+                    <option th:each="user : ${usernameModel}" th:value="${user.username}" th:text="|${user.fullName} (${user.username})|"></option>
+                  </select>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Give out assignments!</button>
               </form>
             </div>
           </div>
