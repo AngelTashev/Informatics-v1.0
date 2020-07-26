@@ -38,6 +38,11 @@ public class DBFileStorageService {
                 .orElseThrow(() -> new FileNotFoundException("File with id " + fileId + " not found!"));
     }
 
+    public void deleteFile(String fileId) {
+        this.fileRepo.deleteById(fileId);
+
+    }
+
     public List<DBFile> getAllFiles() {
         return this.fileRepo.findAll();
     }

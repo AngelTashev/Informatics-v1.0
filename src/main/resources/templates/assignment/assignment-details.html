@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Assignment</title>
+    <title th:text="${assignmentView.name}">Assignment</title>
     <link rel="stylesheet" th:href="@{/css/assignment.css}"/>
     <th:block th:include="~{fragments/head}"/>
 </head>
@@ -25,9 +25,9 @@
                     <h3 class="assignment-date rounded p-2">Date due: <span th:text="${assignmentView.dueDate}"></span></h3>
 
                     <div class="row mt-3 ml-1">
-                        <div th:if="${assignmentView.resource != null}">
-                            <!-- TODO Make resource downloadable, fix this href (id)
-                            <a class="resource-link mt-4" th:href="@{/users/my-profile/assignments/{id}(id=${assignmentView.id})/download-res}">Resources</a>
+                        <div th:if="${assignmentView.resources != null}">
+                            <!-- TODO Make resource downloadable, fix this href (id) -->
+                            <a class="resource-link mt-4" th:href="@{/files/resources/download/{id}(id=${assignmentView.resources.id})}">Resources</a>
                         </div>
                     </div>
 
@@ -38,6 +38,13 @@
                         </h3>
                         <img th:if="${assignmentView.submission == null}" class="col" th:src="@{/img/not-submitted.png}" style="max-width: 8%; height: auto">
                         <img th:unless="${assignmentView.submission == null}" class="col" th:src="@{/img/submitted.png}" style="max-width: 8%; height: auto">
+                    </div>
+
+                    <div class="row mt-4">
+                        <h3 class="col">Points:
+                            <span th:if="${assignmentView.points == null}">No points yet!</span>
+                            <span th:unless="${assignmentView.points == null}" th:text="${assignmentView.points}"></span>
+                        </h3>
                     </div>
 
 

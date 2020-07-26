@@ -47,12 +47,6 @@ public class AssignmentController {
         return "redirect:/users/my-profile/assignments/" + assignmentId;
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/{id}/download-res")
-    public @ResponseBody byte[] downloadResources(@PathVariable("id") String assignmentId) {
-        return this.assignmentService.findDownloadableById(assignmentId).getResource();
-    }
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/add")
     public String getAddAssignmentForm(Model model) {
@@ -69,7 +63,7 @@ public class AssignmentController {
     public String postAddAssignment(@Valid @ModelAttribute("assignmentModel") AssignmentAddBindingModel assignmentModel,
                                     BindingResult bindingResult,
                                     @RequestParam("resources") MultipartFile resources,
-                                    RedirectAttributes redirectAttributes) throws IOException {
+                                    RedirectAttributes redirectAttributes) throws IOException, FileStorageException {
         if (bindingResult.hasErrors()) {
             // TODO Fix redirection of attributes
             redirectAttributes.addFlashAttribute("assignmentModel", assignmentModel);
@@ -78,5 +72,11 @@ public class AssignmentController {
         }
         this.assignmentService.addAssignment(assignmentModel, resources);
         return "redirect:/home";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/all")
+    public String getAllAssignments() {
+        return "assignment/assignment-all";
     }
 }

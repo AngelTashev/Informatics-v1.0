@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Assignments</title>
+    <link rel="stylesheet" th:href="@{/css/assignment.css}"/>
+    <th:block th:include="~{fragments/head}"/>
+</head>
+<body>
+<th:block th:include="~{fragments/nav}"/>
+
+// TODO Finish and implement scoring trough fields. Cannot be scored twice!
+    <div class="rounded m-4 p-2 w-100" style="background-color: #027373;">
+        <a class="m-2" href="" th:text="Namee" style="color: white; font-size: 22px;"></a>
+        <div class="rounded mt-2 p-2" style="background-color: #F29F05;">
+            <h6 class="m-2" href="" style="color: white"></h6>
+        </div>
+    </div>
+
+<th:block th:include="~{fragments/footer}"/>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.angeltashev.informatics.assignment.model;
 
+import com.angeltashev.informatics.file.model.DBFile;
 import com.angeltashev.informatics.user.model.UserEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,9 @@ public class AssignmentEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name="points")
+    private Integer points;
+
     @ManyToOne (
             fetch = FetchType.EAGER
     )
@@ -39,14 +43,12 @@ public class AssignmentEntity {
     @Column(name = "due_date", nullable = false)
     private LocalDateTime dueDate;
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "submission")
-    private byte[] submission;
+    @OneToOne
+    @JoinColumn(name = "submission_id")
+    private DBFile submission;
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "resource")
-    private byte[] resource;
+    @ManyToOne
+    @JoinColumn(name = "resources_id")
+    private DBFile resources;
 
 }
