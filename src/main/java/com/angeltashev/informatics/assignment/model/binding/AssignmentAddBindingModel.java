@@ -24,7 +24,8 @@ public class AssignmentAddBindingModel {
     @Length(min = 12, max = 400, message = "Title length must be between 12 and 400 characters")
     String description;
 
-    @NotNull(message = "Select at least one student, please :)")
+    @NotNull()
+    @Size(min = 1, message = "Select at least one student, please :)")
     List<String> users;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")

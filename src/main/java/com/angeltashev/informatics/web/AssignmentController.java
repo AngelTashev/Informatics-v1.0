@@ -52,8 +52,7 @@ public class AssignmentController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/add")
     public String getAddAssignmentForm(Model model) {
-        if (!model.containsAttribute("assignmentModel") |
-                !model.containsAttribute("usernameModel")) {
+        if (!model.containsAttribute("assignmentModel")) {
             model.addAttribute("assignmentModel", new AssignmentAddBindingModel());
             model.addAttribute("usernameModel", this.userService.getUserAssignmentAddModels());
         }
@@ -67,9 +66,9 @@ public class AssignmentController {
                                     @RequestParam("resources") MultipartFile resources,
                                     RedirectAttributes redirectAttributes) throws IOException, FileStorageException {
         if (bindingResult.hasErrors()) {
-            // TODO Fix redirection of attributes
             redirectAttributes.addFlashAttribute("assignmentModel", assignmentModel);
             redirectAttributes.addFlashAttribute(BINDING_RESULT_PATH + "assignmentModel", bindingResult);
+            redirectAttributes.addFlashAttribute("usernameModel", this.userService.getUserAssignmentAddModels());
             return "redirect:/users/my-profile/assignments/add";
         }
         this.assignmentService.addAssignment(assignmentModel, resources);

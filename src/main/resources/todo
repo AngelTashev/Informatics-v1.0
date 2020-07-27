@@ -8,7 +8,7 @@ home page +++
 assignment details +++
 all assignments +++
 login page +++ ***(remember password needs implementation)
-validations +register (*add assignment)
+validations ++register, add assignment (*edit profile)
 security (separate user details) +
 root admin panel
 edit user details page
