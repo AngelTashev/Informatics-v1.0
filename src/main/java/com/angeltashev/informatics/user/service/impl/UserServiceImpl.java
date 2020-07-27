@@ -15,13 +15,14 @@ import com.angeltashev.informatics.user.service.AuthorityProcessingService;
 import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Base64;
@@ -113,7 +114,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserAssignmentAddBindingModel> getUserAssignmentAddModels() {
-        return this.userRepository.findAll()
+        return this.getAllUsers()
                 .stream()
                 .filter(user -> !user.getUsername().equals("root"))
                 .map(user -> this.modelMapper.map(user, UserAssignmentAddBindingModel.class))
@@ -123,6 +124,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void uploadPicture(String username, MultipartFile file) throws FileStorageException {
         // TODO Remove username param; Fix file storage exception
+        // TODO Log
         UserEntity user = this.userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("An error occured."));
 
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -158,7 +160,21 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = this.userRepository.findByUsername(username).orElse(null);
         Integer currentPoints = userEntity.getPoints();
         userEntity.setPoints(currentPoints + points);
+        // TODO Log
         this.userRepository.save(userEntity);
         return true;
+    }
+
+    @CachePut("users")
+    @Override
+    public List<UserEntity> updateAllStudents() {
+        System.out.println("Updating users cache!");
+        // TODO Log
+        return getAllUsers();
+    }
+
+    @Cacheable("users")
+    public List<UserEntity> getAllUsers() {
+        return this.userRepository.findAll();
     }
 }

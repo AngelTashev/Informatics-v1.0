@@ -49,7 +49,7 @@
 
 
 
-                    <div class="row align-content-end p-3">
+                    <div th:if="${assignmentView.enabled == true}" class="row align-content-end p-3">
                         <div>
                             <form th:action="@{/users/my-profile/assignments/{id}(id=${assignmentView.id})}" enctype="multipart/form-data" th:method="POST" class="m-3">
                                 <div class="row">

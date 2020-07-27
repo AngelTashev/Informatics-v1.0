@@ -30,4 +30,6 @@ public interface UserService {
     UserDTO getUserDTO(String username);
 
     boolean addPointsToUser(String username, Integer points);
+
+    List<UserEntity> updateAllStudents();
 }

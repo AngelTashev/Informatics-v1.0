@@ -13,6 +13,7 @@ public class AssignmentDetailsViewModel {
     private String description;
     private String points;
     private String dueDate;
+    private boolean enabled;
     private DBFile resources;
     private DBFile submission;
 }

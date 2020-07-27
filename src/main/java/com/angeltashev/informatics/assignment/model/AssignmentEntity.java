@@ -43,6 +43,9 @@ public class AssignmentEntity {
     @Column(name = "due_date", nullable = false)
     private LocalDateTime dueDate;
 
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled;
+
     @OneToOne
     @JoinColumn(name = "submission_id")
     private DBFile submission;

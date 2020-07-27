@@ -1,5 +1,6 @@
 package com.angeltashev.informatics.assignment.service;
 
+import com.angeltashev.informatics.assignment.model.AssignmentEntity;
 import com.angeltashev.informatics.assignment.model.binding.AssignmentAddBindingModel;
 import com.angeltashev.informatics.assignment.model.view.AssignmentAllViewModel;
 import com.angeltashev.informatics.assignment.model.view.AssignmentDetailsViewModel;
@@ -20,4 +21,11 @@ public interface AssignmentService {
     List<AssignmentAllViewModel> getAllAssignments();
 
     boolean scoreAssigment(String assignmentId, Integer score);
+
+    boolean cleanUpOldAssignments();
+
+    boolean disableOldAssignments();
+
+    List<AssignmentEntity> updateAllAssignments();
 }
+

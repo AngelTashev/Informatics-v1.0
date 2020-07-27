@@ -14,10 +14,13 @@ import com.angeltashev.informatics.user.repository.UserRepository;
 import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
@@ -76,6 +79,7 @@ public class AssignmentServiceImpl implements AssignmentService {
                 assignmentEntity.setResources(file);
             }
             assignmentEntity.setUser(this.userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username cannot be found")));
+            assignmentEntity.setEnabled(true);
             this.assignmentRepository.saveAndFlush(assignmentEntity);
         }
         return false;
@@ -83,7 +87,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     public List<AssignmentAllViewModel> getAllAssignments() {
-        return this.assignmentRepository.findAll()
+        return this.getAllAssignmentEntities()
                 .stream()
                 .map(assignment -> {
                     AssignmentAllViewModel viewModel = this.modelMapper.map(assignment, AssignmentAllViewModel.class);
@@ -100,6 +104,43 @@ public class AssignmentServiceImpl implements AssignmentService {
         assignment.setPoints(score);
         this.userService.addPointsToUser(assignment.getUser().getUsername(), score);
         this.assignmentRepository.save(assignment);
+        return true;
+    }
+
+    @Override
+    public boolean disableOldAssignments() {
+        LocalDateTime dateTime = LocalDateTime.now();
+        List<AssignmentEntity> assignments = this.assignmentRepository.findAll();
+        assignments.forEach(assignment -> {
+            if (assignment.getDueDate().isBefore(dateTime)) {
+                assignment.setEnabled(false);
+                this.assignmentRepository.save(assignment);
+            }
+        });
+        return true;
+    }
+
+    @CachePut("assignments")
+    @Override
+    public List<AssignmentEntity> updateAllAssignments() {
+        System.out.println("Updating assignment cache!");
+        return this.getAllAssignmentEntities();
+    }
+
+    @Cacheable("assignments")
+    public List<AssignmentEntity> getAllAssignmentEntities() {
+        return this.assignmentRepository.findAll();
+    }
+
+    @Override
+    public boolean cleanUpOldAssignments() {
+        LocalDateTime dateTime = LocalDateTime.now();
+        List<AssignmentEntity> assignments = this.assignmentRepository.findAll();
+        assignments.forEach(assignment -> {
+            if (assignment.getDueDate().plusDays(3).isBefore(dateTime)) {
+                this.assignmentRepository.delete(assignment);
+            }
+        });
         return true;
     }
 }

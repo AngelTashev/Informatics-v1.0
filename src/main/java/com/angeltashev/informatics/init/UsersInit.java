@@ -84,6 +84,7 @@ public class UsersInit implements CommandLineRunner {
             springAssignment.setDescription("Create a basic database with Spring MVC");
             springAssignment.setUser(this.userRepository.findByUsername("pesho_ivanov.2020").orElse(null));
             springAssignment.setDueDate(LocalDateTime.of(2020, 8, 5, 12, 0));
+            springAssignment.setEnabled(true);
             this.assignmentRepository.saveAndFlush(springAssignment);
         }
     }
