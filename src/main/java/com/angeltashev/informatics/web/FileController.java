@@ -27,14 +27,24 @@ public class FileController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/resources/download/{id}")
     public void downloadResources(@PathVariable("id") String resourcesId, HttpServletResponse response) {
+        getDownloadableFileById(resourcesId, response);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/submissions/download/{id}")
+    public void downloadUserSubmission(@PathVariable("id") String submissionId, HttpServletResponse response) {
+        getDownloadableFileById(submissionId, response);
+    }
+
+    private void getDownloadableFileById(String fileId, HttpServletResponse response) {
         try {
-            // get your file as InputStream
-            DBFile file = this.fileStorageService.getFile(resourcesId);
-            response.setContentType(file.getFileType());
+            DBFile file = this.fileStorageService.getFile(fileId);
             byte[] fileBytes = file.getData();
+
+            response.setContentType(file.getFileType());
             InputStream is = new ByteArrayInputStream(file.getData());
-            // copy it to response's OutputStream
             IOUtils.copy(is, response.getOutputStream());
+
             response.flushBuffer();
         } catch (IOException ex) {
             throw new RuntimeException("IOError writing file to output stream");

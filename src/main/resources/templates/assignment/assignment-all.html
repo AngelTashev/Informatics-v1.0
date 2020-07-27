@@ -8,14 +8,36 @@
 <body>
 <th:block th:include="~{fragments/nav}"/>
 
-// TODO Finish and implement scoring trough fields. Cannot be scored twice!
-    <div class="rounded m-4 p-2 w-100" style="background-color: #027373;">
-        <a class="m-2" href="" th:text="Namee" style="color: white; font-size: 22px;"></a>
-        <div class="rounded mt-2 p-2" style="background-color: #F29F05;">
-            <h6 class="m-2" href="" style="color: white"></h6>
+<!-- TODO Finish and implement scoring trough fields. Cannot be scored twice! -->
+<div class="row w-100" style="min-height: 700px;">
+    <div th:each="assignment : ${viewModel}" class="rounded m-4 p-2 w-100"
+         style="background-color: #027373; min-height: 150px; max-height: 200px;">
+        <h1 class="m-2" th:text="${assignment.name}"
+           style="color: white; font-size: 24px; text-align: center;"></h1>
+        <div class="rounded m-2 p-2 row">
+            <div class="rounded m-2 p-2 col-10 w-75" style="background-color: #F29F05;">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="m-2" th:text="${assignment.username}" style="color: white"></h4>
+                    </div>
+                    <div class="col">
+                        <a th:unless="${assignment.submission == null}"
+                           th:href="@{/files/submissions/download/{id}(id = ${assignment.submission.id})}" class="resource-link" style="color: white">>Submission<</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <form th:if="${assignment.points == null}" th:action="@{/users/my-profile/assignments/score/{id}(id = ${assignment.id})}" th:method="POST" class="m-3" style="color: white">
+                    <input type="number" min="0" max="100" id="score" name="score">
+                    <button type="submit" class="submit-button rounded">Score!</button>
+                </form>
+                <h3 th:unless="${assignment.points == null}" th:text="${assignment.points}" class="m-3" style="color: white">Points</h3>
+            </div>
         </div>
     </div>
+</div>
 
+</div>
 <th:block th:include="~{fragments/footer}"/>
 </body>
 </html>

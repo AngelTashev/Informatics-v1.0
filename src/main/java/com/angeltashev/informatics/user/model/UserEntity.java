@@ -61,6 +61,9 @@ public class UserEntity implements UserDetails {
     @Column(name = "phrase")
     private String phrase;
 
+    @Column(name = "points", nullable = false)
+    private Integer points;
+
     @OneToMany(
             fetch = FetchType.EAGER,
             mappedBy = "user",

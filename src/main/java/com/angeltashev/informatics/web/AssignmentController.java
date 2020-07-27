@@ -1,6 +1,7 @@
 package com.angeltashev.informatics.web;
 
 import com.angeltashev.informatics.assignment.model.binding.AssignmentAddBindingModel;
+import com.angeltashev.informatics.assignment.model.view.AssignmentAllViewModel;
 import com.angeltashev.informatics.assignment.model.view.AssignmentDetailsViewModel;
 import com.angeltashev.informatics.assignment.service.AssignmentService;
 import com.angeltashev.informatics.exceptions.PageNotFoundException;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 
 import static com.angeltashev.informatics.constants.ApplicationParameters.BINDING_RESULT_PATH;
 
@@ -76,7 +78,16 @@ public class AssignmentController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/all")
-    public String getAllAssignments() {
+    public String getAllAssignments(Model model) {
+        List<AssignmentAllViewModel> viewModel = this.assignmentService.getAllAssignments();
+        model.addAttribute("viewModel", viewModel);
         return "assignment/assignment-all";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/score/{id}")
+    public String scoreAssignment(@PathVariable("id") String assignmentId, @RequestParam("score") Integer score) {
+        this.assignmentService.scoreAssigment(assignmentId, score);
+        return "redirect:/users/my-profile/assignments/all";
     }
 }

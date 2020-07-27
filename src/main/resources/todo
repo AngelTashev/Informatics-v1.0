@@ -4,11 +4,12 @@ upload file +++
 error handling - user page +++ +++
 download file +++
 error handling - default error page +++
+home page +++
+assignment details +++
+all assignments +++
 validations +register (*add assignment)
-login page + (remember password needs implementation)
-home page +
-assignments +
-security (seperate user details) +
+login page ++ (remember password needs implementation)
+security (separate user details) +
 root admin panel
 edit user details page
 change all texts

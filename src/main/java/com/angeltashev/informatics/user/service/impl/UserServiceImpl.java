@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Base64;
@@ -46,6 +47,7 @@ public class UserServiceImpl implements UserService {
         user.setAuthorities(Set.of(authorityProcessingService.getStudentAuthority()));
         user.setActive(true);
         user.setRegistrationDate(LocalDateTime.now());
+        user.setPoints(0);
         this.userRepository.saveAndFlush(user);
         return true;
     }
@@ -149,5 +151,14 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserDTO(String username) {
         UserEntity user = this.userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username cannot be found"));
         return this.modelMapper.map(user, UserDTO.class);
+    }
+
+    @Override
+    public boolean addPointsToUser(String username, Integer points) {
+        UserEntity userEntity = this.userRepository.findByUsername(username).orElse(null);
+        Integer currentPoints = userEntity.getPoints();
+        userEntity.setPoints(currentPoints + points);
+        this.userRepository.save(userEntity);
+        return true;
     }
 }

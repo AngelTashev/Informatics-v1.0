@@ -28,4 +28,6 @@ public interface UserService {
     void uploadPicture(String username, MultipartFile file) throws FileStorageException;
 
     UserDTO getUserDTO(String username);
+
+    boolean addPointsToUser(String username, Integer points);
 }

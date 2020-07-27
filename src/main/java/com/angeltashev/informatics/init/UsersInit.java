@@ -46,6 +46,7 @@ public class UsersInit implements CommandLineRunner {
             root.setGradeClass("ZH");
             root.setRegistrationDate(LocalDateTime.now());
             root.setActive(true);
+            root.setPoints(0);
             this.userRepository.saveAndFlush(root);
 
             // Admin
@@ -59,6 +60,7 @@ public class UsersInit implements CommandLineRunner {
             admin.setGradeClass("V");
             admin.setRegistrationDate(LocalDateTime.now());
             admin.setActive(true);
+            admin.setPoints(0);
             this.userRepository.saveAndFlush(admin);
 
             // Pesho
@@ -73,6 +75,7 @@ public class UsersInit implements CommandLineRunner {
             pesho.setPhrase("I'm a student!");
             pesho.setRegistrationDate(LocalDateTime.now());
             pesho.setActive(true);
+            pesho.setPoints(0);
             this.userRepository.saveAndFlush(pesho);
         }
         if (this.assignmentRepository.count() == 0) {

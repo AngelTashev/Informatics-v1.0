@@ -3,6 +3,7 @@ package com.angeltashev.informatics.assignment.service.impl;
 import com.angeltashev.informatics.assignment.exception.InvalidArgumentIdException;
 import com.angeltashev.informatics.assignment.model.binding.AssignmentAddBindingModel;
 import com.angeltashev.informatics.assignment.model.AssignmentEntity;
+import com.angeltashev.informatics.assignment.model.view.AssignmentAllViewModel;
 import com.angeltashev.informatics.assignment.model.view.AssignmentDetailsViewModel;
 import com.angeltashev.informatics.assignment.repository.AssignmentRepository;
 import com.angeltashev.informatics.assignment.service.AssignmentService;
@@ -10,14 +11,17 @@ import com.angeltashev.informatics.file.exception.FileStorageException;
 import com.angeltashev.informatics.file.model.DBFile;
 import com.angeltashev.informatics.file.service.DBFileStorageService;
 import com.angeltashev.informatics.user.repository.UserRepository;
+import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -26,6 +30,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     private final ModelMapper modelMapper;
 
     private final DBFileStorageService fileStorageService;
+    private final UserService userService;
 
     private final UserRepository userRepository;
     private final AssignmentRepository assignmentRepository;
@@ -60,7 +65,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public boolean addAssignment(AssignmentAddBindingModel assignment, MultipartFile resources) throws IOException, FileStorageException {
+    public boolean addAssignment(AssignmentAddBindingModel assignment, MultipartFile resources) throws FileStorageException {
         DBFile file = null;
         if (!resources.isEmpty()) {
             file = this.fileStorageService.storeFile(resources);
@@ -74,5 +79,27 @@ public class AssignmentServiceImpl implements AssignmentService {
             this.assignmentRepository.saveAndFlush(assignmentEntity);
         }
         return false;
+    }
+
+    @Override
+    public List<AssignmentAllViewModel> getAllAssignments() {
+        return this.assignmentRepository.findAll()
+                .stream()
+                .map(assignment -> {
+                    AssignmentAllViewModel viewModel = this.modelMapper.map(assignment, AssignmentAllViewModel.class);
+                    viewModel.setUsername(assignment.getUser().getUsername());
+                    return viewModel;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean scoreAssigment(String assignmentId, Integer score) {
+        AssignmentEntity assignment = this.assignmentRepository.findById(assignmentId).orElse(null);
+        Objects.requireNonNull(assignment);
+        assignment.setPoints(score);
+        this.userService.addPointsToUser(assignment.getUser().getUsername(), score);
+        this.assignmentRepository.save(assignment);
+        return true;
     }
 }

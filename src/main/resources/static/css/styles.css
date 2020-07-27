@@ -32,6 +32,29 @@ h1 {
 	font-weight: 600;
 }
 
+h2 {
+	font-family: exo;
+}
+
+h3 {
+	font-family: exo;
+}
+
+h4 {
+	font-family: exo;
+}
+
+h5 {
+	font-family: exo;
+}
+
+h6 {
+	font-family: exo;
+}
+
+a {
+	font-family: exo;
+}
 
 .fixed-top {
 	background-color: rgba(60, 60, 60, 1);
