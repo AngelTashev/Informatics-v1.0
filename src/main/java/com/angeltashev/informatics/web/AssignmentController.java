@@ -8,6 +8,7 @@ import com.angeltashev.informatics.exceptions.PageNotFoundException;
 import com.angeltashev.informatics.file.exception.FileStorageException;
 import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

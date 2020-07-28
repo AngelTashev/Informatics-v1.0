@@ -13,6 +13,7 @@ import com.angeltashev.informatics.file.service.DBFileStorageService;
 import com.angeltashev.informatics.user.repository.UserRepository;
 import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Slf4j
 @AllArgsConstructor
 @Service
 public class AssignmentServiceImpl implements AssignmentService {
@@ -41,10 +43,17 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     public AssignmentDetailsViewModel getAssignmentByIdAndUser(String id, String username) {
         AssignmentEntity assignmentEntity = this.assignmentRepository.findById(id).orElse(null);
-        if (assignmentEntity == null) return null;
-        if (!assignmentEntity.getUser().getUsername().equals(username)) return null;
+        if (assignmentEntity == null) {
+            log.error("Get assignment: Invalid assignment id");
+            return null;
+        }
+        if (!assignmentEntity.getUser().getUsername().equals(username)) {
+            log.error("Get assignment: Invalid username");
+            return null;
+        }
         AssignmentDetailsViewModel assignmentDetailsViewModel = this.modelMapper.map(assignmentEntity, AssignmentDetailsViewModel.class);
         assignmentDetailsViewModel.setDueDate(assignmentEntity.getDueDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm a")));
+        log.info("Get assignment: Returned assignment with id " + id + " / Username: " + username);
         return assignmentDetailsViewModel;
     }
 
@@ -52,6 +61,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     public boolean uploadSubmission(String assignmentId, MultipartFile submission) throws FileStorageException {
         AssignmentEntity assignmentEntity = this.assignmentRepository.findById(assignmentId).orElse(null);
         if (assignmentEntity == null) {
+            log.error("Upload submission: Assignment id is invalid!");
             throw new InvalidArgumentIdException("Assignment id is invalid!");
         }
         String oldSubmissionId = null;
@@ -61,8 +71,10 @@ public class AssignmentServiceImpl implements AssignmentService {
         DBFile file = this.fileStorageService.storeFile(submission);
         assignmentEntity.setSubmission(file);
         this.assignmentRepository.save(assignmentEntity);
+        log.info("Upload submission: Uploaded submission with id: " + assignmentId + " / Username: " + assignmentEntity.getUser().getUsername());
         if (oldSubmissionId != null) {
             this.fileStorageService.deleteFile(oldSubmissionId);
+            log.info("Upload submission: Deleted old submission with id: " + assignmentId + " / Username: " + assignmentEntity.getUser().getUsername());
         }
         return true;
     }
@@ -71,6 +83,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     public boolean addAssignment(AssignmentAddBindingModel assignment, MultipartFile resources) throws FileStorageException {
         DBFile file = null;
         if (!resources.isEmpty()) {
+            log.info("Add assignment: Resources added to assignment " + assignment.getName());
             file = this.fileStorageService.storeFile(resources);
         }
         for(String username : assignment.getUsers()) {
@@ -80,6 +93,7 @@ public class AssignmentServiceImpl implements AssignmentService {
             }
             assignmentEntity.setUser(this.userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username cannot be found")));
             assignmentEntity.setEnabled(true);
+            log.info("Add assignment: Added assignment " + assignment.getName() + " to " + username);
             this.assignmentRepository.saveAndFlush(assignmentEntity);
         }
         return false;
@@ -87,6 +101,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     public List<AssignmentAllViewModel> getAllAssignments() {
+        log.info("Get all assignments: Getting all assignments");
         return this.getAllAssignmentEntities()
                 .stream()
                 .map(assignment -> {
@@ -100,9 +115,14 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     public boolean scoreAssigment(String assignmentId, Integer score) {
         AssignmentEntity assignment = this.assignmentRepository.findById(assignmentId).orElse(null);
-        Objects.requireNonNull(assignment);
+        if(assignment == null) {
+            log.error("Score assignment: Assignment id is invalid!");
+            throw new InvalidArgumentIdException("Assignment id is invalid!");
+        }
         assignment.setPoints(score);
+        log.info("Score assignment: Points (" + score + ") set to assignment with id: " + assignmentId);
         this.userService.addPointsToUser(assignment.getUser().getUsername(), score);
+        log.info("Score assignment: Points (" + score + ") added to username:  " + assignment.getUser().getUsername());
         this.assignmentRepository.save(assignment);
         return true;
     }
@@ -114,6 +134,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         assignments.forEach(assignment -> {
             if (assignment.getDueDate().isBefore(dateTime)) {
                 assignment.setEnabled(false);
+                log.info("Disable old assignments: disabled assignment with id: " + assignment.getId());
                 this.assignmentRepository.save(assignment);
             }
         });
@@ -123,12 +144,13 @@ public class AssignmentServiceImpl implements AssignmentService {
     @CachePut("assignments")
     @Override
     public List<AssignmentEntity> updateAllAssignments() {
-        System.out.println("Updating assignment cache!");
+        log.info("Update all assignments: Updated assignments cache");
         return this.getAllAssignmentEntities();
     }
 
     @Cacheable("assignments")
     public List<AssignmentEntity> getAllAssignmentEntities() {
+        log.info("Get all assignments: Retrieved all assignments");
         return this.assignmentRepository.findAll();
     }
 
@@ -138,6 +160,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         List<AssignmentEntity> assignments = this.assignmentRepository.findAll();
         assignments.forEach(assignment -> {
             if (assignment.getDueDate().plusDays(3).isBefore(dateTime)) {
+                log.info("Clean up old assignments: Deleted assignment with id: " + assignment.getId());
                 this.assignmentRepository.delete(assignment);
             }
         });
