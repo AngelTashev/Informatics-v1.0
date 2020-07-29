@@ -14,6 +14,7 @@ import com.angeltashev.informatics.user.repository.UserRepository;
 import com.angeltashev.informatics.user.service.AuthorityProcessingService;
 import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @AllArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
@@ -50,9 +52,12 @@ public class UserServiceImpl implements UserService {
         user.setRegistrationDate(LocalDateTime.now());
         user.setPoints(0);
         this.userRepository.saveAndFlush(user);
+        log.info("Register user: Registered user " + user.getFullName() + " with username: " + user.getUsername());
         return true;
     }
 
+
+    // TODO Log after refactoring
     @Override
     public UserProfileViewModel getUserProfile(String username) {
         UserEntity userEntity = this.userRepository.findByUsername(username).orElse(new UserEntity());
@@ -74,18 +79,22 @@ public class UserServiceImpl implements UserService {
     public UserVisitViewModel getUserVisitProfile(String username) throws PageNotFoundException {
 
         UserEntity userEntity = this.userRepository.findByUsername(username).orElse(null);
-        if (userEntity == null) throw new PageNotFoundException("Username is not found");
+        if (userEntity == null) {
+            log.error("Get user visit profile: Username is not found");
+            throw new PageNotFoundException("Username is not found");
+        }
         UserVisitViewModel userVisitViewModel = this.modelMapper.map(
                 userEntity,
                 UserVisitViewModel.class
         );
         userVisitViewModel.setAuthority(getUserAuthority(userEntity));
-        byte[] profilePicture = userEntity.getProfilePicture();
+        byte[] profilePicture = userEntity.getProfilePicture(); //TODO Refactor
         String profilePictureString = "";
         if (profilePicture != null) {
             profilePictureString = Base64.getEncoder().encodeToString(userEntity.getProfilePicture());
         }
         userVisitViewModel.setProfilePictureString(profilePictureString);
+        log.info("Get user visit profile: Retrieved user view model with username: " + username);
         return userVisitViewModel;
     }
 
@@ -96,24 +105,29 @@ public class UserServiceImpl implements UserService {
                 userEntity,
                 UserHomeViewModel.class
         );
-        System.out.println();
+        log.info("Get user home details: Retrieved user view model with username: " + username);
         return userHomeViewModel;
     }
 
     @Override
     public UserDTO findByUsername(String username) {
         UserEntity user = this.userRepository.findByUsername(username).orElse(null);
+//        if (user == null)
+//            log.info("Find by username: user with this username does not exist");
         return user != null ? this.modelMapper.map(user, UserDTO.class) : null;
     }
 
     @Override
     public UserDTO findByEmail(String email) {
         UserEntity user = this.userRepository.findByEmail(email).orElse(null);
+//        if (user == null)
+//            log.info("Find by email: user with this email does not exist");
         return user != null ? this.modelMapper.map(user, UserDTO.class) : null;
     }
 
     @Override
     public List<UserAssignmentAddBindingModel> getUserAssignmentAddModels() {
+        log.info("Get user assignment add models: Retrieving all users");
         return this.getAllUsers()
                 .stream()
                 .filter(user -> !user.getUsername().equals("root"))
@@ -123,8 +137,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void uploadPicture(String username, MultipartFile file) throws FileStorageException {
-        // TODO Remove username param; Fix file storage exception
-        // TODO Log
+
+        // TODO Refactor and log
         UserEntity user = this.userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("An error occured."));
 
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -151,7 +165,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserDTO(String username) {
-        UserEntity user = this.userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username cannot be found"));
+        UserEntity user = this.userRepository.findByUsername(username).orElseThrow(() -> {
+            log.error("Get user DTO: Username cannot be found!" + username);
+            throw new UsernameNotFoundException("Username cannot be found");
+        });
+        log.info("Get user DTO: Retrieved user DTO with username: " + username);
         return this.modelMapper.map(user, UserDTO.class);
     }
 
@@ -160,7 +178,7 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = this.userRepository.findByUsername(username).orElse(null);
         Integer currentPoints = userEntity.getPoints();
         userEntity.setPoints(currentPoints + points);
-        // TODO Log
+        log.info("Add points to user: Added " + points + " points to " + username);
         this.userRepository.save(userEntity);
         return true;
     }
@@ -168,13 +186,13 @@ public class UserServiceImpl implements UserService {
     @CachePut("users")
     @Override
     public List<UserEntity> updateAllStudents() {
-        System.out.println("Updating users cache!");
-        // TODO Log
+        log.info("Update all students: Updating users cache!");
         return getAllUsers();
     }
 
     @Cacheable("users")
     public List<UserEntity> getAllUsers() {
+        log.info("Get all students: Retrieving all cached users");
         return this.userRepository.findAll();
     }
 }

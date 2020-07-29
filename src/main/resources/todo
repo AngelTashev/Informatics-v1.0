@@ -11,16 +11,16 @@ login page +++ ***(remember password needs implementation)
 validations ++register, add assignment (*edit profile)
 scheduling +++ (assignment dates)
 cache +++ (users and assignments)
+security +++
 
-security (separate user details) +
+logger +
 
-logger
+unit testing
+async
 2 interceptors
 root admin panel
 edit user details page
 change all texts
-async
-unit testing
 
 
 #SET GLOBAL max_allowed_packet=268435456;   for sql packets
