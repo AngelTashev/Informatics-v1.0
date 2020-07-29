@@ -6,6 +6,7 @@ import com.angeltashev.informatics.user.model.view.UserProfileViewModel;
 import com.angeltashev.informatics.user.model.view.UserVisitViewModel;
 import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 
+@Slf4j
 @AllArgsConstructor
 @Controller
 @RequestMapping("/users")
@@ -37,6 +39,7 @@ public class UserProfileController {
         
         UserProfileViewModel user = this.userService.getUserProfile(principal.getName());
         model.addAttribute("userView", user);
+        log.info("Get user profile: Retrieving user profile: " + user.getUsername());
         return "user/profile-details";
     }
 
@@ -45,7 +48,11 @@ public class UserProfileController {
     public String getUserByUsername(@PathVariable("username") String username, Model model) throws PageNotFoundException {
         // TODO Fix redirect to home page with losing authentication when searching for a wrong username
         UserVisitViewModel user = this.userService.getUserVisitProfile(username);
-        if (user == null) throw new PageNotFoundException("Username is not found");
+        if (user == null) {
+            log.error("Get user by username: Username is not found");
+            throw new PageNotFoundException("Username is not found");
+        }
+        log.info("Get user by username: Retrieved visit model for: " + username);
         model.addAttribute("userVisitView", user);
         return "user/profile-visit";
     }
@@ -55,7 +62,7 @@ public class UserProfileController {
     public String uploadProfilePicture(@RequestParam("file") MultipartFile file,
                                        Principal principal
                                        ) throws FileStorageException {
-
+        // TODO Refactor
         this.userService.uploadPicture(principal.getName(), file);
         return "redirect:/users/my-profile";
     }

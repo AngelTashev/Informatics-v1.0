@@ -4,6 +4,7 @@ import com.angeltashev.informatics.constants.ApplicationParameters;
 import com.angeltashev.informatics.user.model.binding.UserRegisterBindingModel;
 import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 
 import static com.angeltashev.informatics.constants.ApplicationParameters.BINDING_RESULT_PATH;
 
+@Slf4j
 @AllArgsConstructor
 @Controller
 @RequestMapping("/users")
@@ -63,6 +65,7 @@ public class UserAuthenticationController {
             bindingResult.rejectValue("confirmPassword", "error.registerModel", "Passwords don't match");
         }
         if (bindingResult.hasErrors()) {
+            log.error("Confirm register form: Binding model contains errors");
             redirectAttributes.addFlashAttribute("registerModel", registerModel);
             redirectAttributes.addFlashAttribute(BINDING_RESULT_PATH + "registerModel", bindingResult);
             return "redirect:/users/register";
@@ -70,6 +73,7 @@ public class UserAuthenticationController {
 
         //Successful registration
         this.userService.registerUser(registerModel);
+        log.info("Confirm register form: Successfully registered user " + registerModel.getFullName() + " with username " + registerModel.getUsername());
         return "redirect:/users/login";
     }
 }

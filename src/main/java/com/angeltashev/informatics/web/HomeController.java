@@ -19,8 +19,7 @@ public class HomeController {
     private final UserService userService;
 
     @GetMapping
-    public String getIndex(Model model) {
-        model.addAttribute("username", "Ivan");
+    public String getIndex() {
         return "index/index";
     }
 
