@@ -43,6 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index", "/files/upload").permitAll()
                 .antMatchers("/users/register", "/users/login").anonymous()
                 .antMatchers("/home", "/users/**").authenticated()
+                .antMatchers("root-admin-panel", "/root-admin-panel/**").hasRole("ROOT_ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/users/login")
