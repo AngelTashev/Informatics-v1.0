@@ -9,7 +9,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -46,12 +45,16 @@ public class AssignmentEntity {
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "submission_id")
     private DBFile submission;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "resources_id")
     private DBFile resources;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "comment_id")
+    private CommentEntity comment;
 
 }

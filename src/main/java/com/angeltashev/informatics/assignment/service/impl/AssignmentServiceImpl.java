@@ -1,11 +1,13 @@
 package com.angeltashev.informatics.assignment.service.impl;
 
 import com.angeltashev.informatics.assignment.exception.InvalidArgumentIdException;
+import com.angeltashev.informatics.assignment.model.CommentEntity;
 import com.angeltashev.informatics.assignment.model.binding.AssignmentAddBindingModel;
 import com.angeltashev.informatics.assignment.model.AssignmentEntity;
 import com.angeltashev.informatics.assignment.model.view.AssignmentAllViewModel;
 import com.angeltashev.informatics.assignment.model.view.AssignmentDetailsViewModel;
 import com.angeltashev.informatics.assignment.repository.AssignmentRepository;
+import com.angeltashev.informatics.assignment.repository.CommentRepository;
 import com.angeltashev.informatics.assignment.service.AssignmentService;
 import com.angeltashev.informatics.file.exception.FileStorageException;
 import com.angeltashev.informatics.file.model.DBFile;
@@ -39,6 +41,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     private final UserRepository userRepository;
     private final AssignmentRepository assignmentRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     public AssignmentDetailsViewModel getAssignmentByIdAndUser(String id, String username) {
@@ -113,7 +116,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public boolean scoreAssigment(String assignmentId, Integer score) {
+    public boolean scoreAssigment(String assignmentId, Integer score, String comment) {
         AssignmentEntity assignment = this.assignmentRepository.findById(assignmentId).orElse(null);
         if(assignment == null) {
             log.error("Score assignment: Assignment id is invalid!");
@@ -121,6 +124,12 @@ public class AssignmentServiceImpl implements AssignmentService {
         }
         assignment.setPoints(score);
         log.info("Score assignment: Points (" + score + ") set to assignment with id: " + assignmentId);
+        if (!comment.trim().isEmpty()) {
+            CommentEntity commentEntity = new CommentEntity();
+            commentEntity.setComment(comment);
+            commentEntity = this.commentRepository.save(commentEntity);
+            assignment.setComment(commentEntity);
+        }
         this.userService.addPointsToUser(assignment.getUser().getUsername(), score);
         log.info("Score assignment: Points (" + score + ") added to username:  " + assignment.getUser().getUsername());
         this.assignmentRepository.save(assignment);
@@ -146,6 +155,17 @@ public class AssignmentServiceImpl implements AssignmentService {
     public List<AssignmentEntity> updateAllAssignments() {
         log.info("Update all assignments: Updated assignments cache");
         return this.getAllAssignmentEntities();
+    }
+
+    @Override
+    public boolean deleteAssignmentById(String assignmentId) {
+        try {
+            this.assignmentRepository.deleteById(assignmentId);
+            log.info("Delete assignment by id: Deleted assignment with id: " + assignmentId);
+        } catch (Exception e) {
+            log.error("Delete assignment by id: Assignment with id " + assignmentId + " does not exist");
+        }
+        return true;
     }
 
     @Cacheable("assignments")

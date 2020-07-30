@@ -1,5 +1,6 @@
 package com.angeltashev.informatics.assignment.model.view;
 
+import com.angeltashev.informatics.assignment.model.CommentEntity;
 import com.angeltashev.informatics.file.model.DBFile;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,4 +17,5 @@ public class AssignmentDetailsViewModel {
     private boolean enabled;
     private DBFile resources;
     private DBFile submission;
+    private CommentEntity comment;
 }

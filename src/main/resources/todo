@@ -8,18 +8,23 @@ home page +++
 assignment details +++
 all assignments +++
 login page +++ ***(remember password needs implementation)
-validations ++register, add assignment (*edit profile)
+validations +++ register, add assignment (*edit profile)
 scheduling +++ (assignment dates)
 cache +++ (users and assignments)
 security +++
+5 entities +++
 
-logger +
+logger ++
 
-unit testing
-async
-2 interceptors
-root admin panel
 edit user details page
+
+root admin panel
+2 interceptors
+async
+unit testing
+
+
+----------------
 change all texts
 
 

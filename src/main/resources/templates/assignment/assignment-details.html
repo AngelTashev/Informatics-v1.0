@@ -19,6 +19,11 @@
                         <div class="rounded overflow-auto assignment-description m-4">
                             <p class="m-auto p-2" th:text="${assignmentView.description}"></p>
                         </div>
+                        <h3 class="m-4" style="color: white">Comment</h3>
+                        <div class="rounded overflow-auto assignment-description m-4">
+                            <p th:unless="${assignmentView.comment == null}" class="m-auto p-2" th:text="${assignmentView.comment.comment}"></p>
+                            <p th:if="${assignmentView.comment == null}" class="m-auto p-2">No comment left :)</p>
+                        </div>
                     </div>
                 </div>
                 <div class="col m-4 text-left">

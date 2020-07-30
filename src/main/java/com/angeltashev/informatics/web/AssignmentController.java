@@ -93,9 +93,20 @@ public class AssignmentController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/score/{id}")
-    public String scoreAssignment(@PathVariable("id") String assignmentId, @RequestParam("score") Integer score) {
+    public String scoreAssignment(@PathVariable("id") String assignmentId,
+                                  @RequestParam("score") Integer score,
+                                  @RequestParam("comment") String comment) {
         log.info("Score assignment: Started scoring of assignment");
-        this.assignmentService.scoreAssigment(assignmentId, score);
+        this.assignmentService.scoreAssigment(assignmentId, score, comment);
+        return "redirect:/users/my-profile/assignments/all";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/delete/{id}")
+    public String deleteAssignment(@PathVariable("id") String assignmentId) {
+        log.info("Delete assignment: Started deletion of assignment");
+        System.out.println();
+        this.assignmentService.deleteAssignmentById(assignmentId);
         return "redirect:/users/my-profile/assignments/all";
     }
 }

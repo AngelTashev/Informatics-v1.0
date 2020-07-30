@@ -13,25 +13,69 @@
     <div th:each="assignment : ${viewModel}" class="rounded m-4 p-2 w-100"
          style="background-color: #027373; min-height: 150px; max-height: 200px;">
         <h1 class="m-2" th:text="${assignment.name}"
-           style="color: white; font-size: 24px; text-align: center;"></h1>
+            style="color: white; font-size: 24px; text-align: center;"></h1>
+        <div class="col">
+            <a class="btn btn-danger" th:href="@{/users/my-profile/assignments/delete/{id}(id = ${assignment.id})}">Delete</a>
+        </div>
         <div class="rounded m-2 p-2 row">
-            <div class="rounded m-2 p-2 col-10 w-75" style="background-color: #F29F05;">
+            <div class="col rounded m-2 p-2 col-10 w-75" style="background-color: #F29F05;">
                 <div class="row">
                     <div class="col">
                         <h4 class="m-2" th:text="${assignment.username}" style="color: white"></h4>
                     </div>
                     <div class="col">
                         <a th:unless="${assignment.submission == null}"
-                           th:href="@{/files/submissions/download/{id}(id = ${assignment.submission.id})}" class="resource-link" style="color: white">>Submission<</a>
+                           th:href="@{/files/submissions/download/{id}(id = ${assignment.submission.id})}"
+                           class="resource-link" style="color: white">>Submission<</a>
                     </div>
                 </div>
             </div>
             <div class="col">
-                <form th:if="${assignment.points == null}" th:action="@{/users/my-profile/assignments/score/{id}(id = ${assignment.id})}" th:method="POST" class="m-3" style="color: white">
-                    <input type="number" min="0" max="100" id="score" name="score">
-                    <button type="submit" class="submit-button rounded">Score!</button>
-                </form>
-                <h3 th:unless="${assignment.points == null}" th:text="${assignment.points}" class="m-3" style="color: white">Points</h3>
+                <div th:if="${assignment.points == null}">
+
+                    <!-- Modal -->
+                    <button type="button" class="btn btn-primary m-4" style="background-color: #fdb019;" data-toggle="modal" data-target="#exampleModal">
+                        Score
+                    </button>
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Score the assingment</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form
+                                        th:action="@{/users/my-profile/assignments/score/{id}(id = ${assignment.id})}"
+                                        th:method="POST" class="m-3" style="color: white">
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <label for="score" style="color: black;" class="m-2">Points:</label>
+                                            <input class="form-control" type="number" min="0" max="100" id="score"
+                                                   name="score" placeholder="Points" required>
+                                        </div>
+                                        <div class="row mt-2 mb-4">
+                                            <label for="commnent" style="color: black;" class="m-2">Comment:</label>
+                                            <textarea id="commnent" name="comment" class="form-control" maxlength="200"
+                                                      style="min-height: 200px;" placeholder="Comment"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="submit" class="btn btn-primary" style="background-color: #fdb019;">Score assignment!</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <h3 th:unless="${assignment.points == null}" th:text="${assignment.points}" class="m-3"
+                    style="color: white">Points</h3>
             </div>
         </div>
     </div>

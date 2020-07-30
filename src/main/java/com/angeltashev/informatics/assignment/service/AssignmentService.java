@@ -20,12 +20,14 @@ public interface AssignmentService {
 
     List<AssignmentAllViewModel> getAllAssignments();
 
-    boolean scoreAssigment(String assignmentId, Integer score);
+    boolean scoreAssigment(String assignmentId, Integer score, String comment);
 
     boolean cleanUpOldAssignments();
 
     boolean disableOldAssignments();
 
     List<AssignmentEntity> updateAllAssignments();
+
+    boolean deleteAssignmentById(String assinmentId);
 }
 

@@ -24,7 +24,8 @@
     font-style: italic;
     /*border: #F29F05 2px solid;*/
     width: 92%;
-    height: 400px;
+    min-height: 200px;
+    max-height: 300px;
     /*background-color: #036161;*/
 }
 
