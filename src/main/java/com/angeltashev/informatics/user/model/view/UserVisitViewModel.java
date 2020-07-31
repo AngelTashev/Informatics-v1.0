@@ -11,5 +11,6 @@ public class UserVisitViewModel {
     private String username;
     private String authority;
     private String phrase;
+    private Integer points;
     private String profilePictureString;
 }

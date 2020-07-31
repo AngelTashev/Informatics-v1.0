@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.security.Principal;
 
 @Slf4j
@@ -61,9 +62,19 @@ public class UserProfileController {
     @PostMapping("/upload-picture")
     public String uploadProfilePicture(@RequestParam("file") MultipartFile file,
                                        Principal principal
-                                       ) throws FileStorageException {
-        // TODO Refactor
-        this.userService.uploadPicture(principal.getName(), file);
+                                       ) throws FileStorageException, IOException {
+        log.info("Upload profile picture (controller): Requested upload of picture for user: " + principal.getName());
+        this.userService.uploadProfilePicture(principal.getName(), file);
+        return "redirect:/users/my-profile";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/change-phrase")
+    public String changePhrase(@RequestParam("phrase") String phrase,
+                                       Principal principal
+    ) {
+        log.info("Change phrase (controller): Requested change of phrase for user: " + principal.getName());
+        this.userService.changePhrase(principal.getName(), phrase);
         return "redirect:/users/my-profile";
     }
 

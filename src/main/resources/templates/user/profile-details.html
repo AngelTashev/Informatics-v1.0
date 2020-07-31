@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>My profile</title>
     <th:block th:include="~{/fragments/head}"/>
@@ -11,32 +11,84 @@
     <div class="row">
         <div class="profile-header-container">
             <div class="profile-header-img">
-                <img th:if="*{profilePictureString == ''}" class="rounded-circle" th:src="@{/img/default-pic.png}" />
-                <img th:unless="*{profilePictureString == ''}" class="rounded-circle" th:src="*{'data:image/jpg;base64,'+ profilePictureString}" />
+                <img th:if="*{profilePictureString == ''}" class="rounded-circle" th:src="@{/img/default-pic.png}"/>
+                <img th:unless="*{profilePictureString == ''}" class="rounded-circle"
+                     th:src="*{'data:image/jpg;base64,'+ profilePictureString}"/>
                 <!-- badge -->
                 <div class="rank-label-container">
                     <span class="label label-default rank-label" th:text="${#strings.capitalize(userView.authority)}">authority</span>
                 </div>
+                <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#profilePictureModal">
+                    Change profile picture
+                </button>
             </div>
         </div>
     </div>
     <div class="row m-1">
-        <h1 th:text="|*{fullName}|">Full name</h1><h1 th:text="|: (*{username})|">Username</h1>
+        <h1 th:text="|*{fullName}|">Full name</h1>
+        <h1 th:text="|: (*{username})|">Username</h1>
     </div>
     <div class="row m-1">
         <h1 th:text="|Points: *{points}|">Points</h1>
     </div>
     <div class="row m-1">
-        <h5 th:unless="*{phrase == null}" th:text="*{phrase}" class="font-italic">Phrase</h5>
+        <h5 th:unless="*{phrase == null || phrase == ''}" th:text="*{phrase}" class="font-italic">Phrase</h5>
     </div>
     <div class="row m-1 mt-0">
-        <button class="btn btn-info"><a style="color: white" href="/users/login">Edit profile</a></button>
+        <button type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#changePhraseModal">
+            Change phrase
+        </button>
     </div>
 
-    <form th:action="@{/users/upload-picture}" th:method="POST" enctype="multipart/form-data" style="margin-left: 300px; margin-top: 100px;">
-        <input type="file" id="file" name="file" accept="image/x-png,image/jpeg,image/jpg">
-        <input type="submit">
-    </form>
+    <!-- Profile picture form -->
+    <div class="modal fade" id="profilePictureModal" tabindex="-1" role="dialog" aria-labelledby="profilePictureModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form th:action="@{/users/upload-picture}" th:method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="profilePictureModalLabel">Change profile picture</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="file" id="file" class="form-control-file" name="file"
+                               accept="image/x-png,image/jpeg,image/jpg">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile picture form -->
+    <div class="modal fade" id="changePhraseModal" tabindex="-1" role="dialog" aria-labelledby="changePhraseLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form th:action="@{/users/change-phrase}" th:method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="changePhraseLabel">Change phrase</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="phrase">Phrase</label>
+                        <input type="text" maxlength="5     0" id="phrase" name="phrase" class="form-control" placeholder="Your phrase!">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

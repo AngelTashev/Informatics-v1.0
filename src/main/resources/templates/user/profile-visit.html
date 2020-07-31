@@ -24,6 +24,9 @@
         <h1 th:text="|*{fullName}|">Full name</h1><h1 th:text="|: (*{username})|">Username</h1>
     </div>
     <div class="row m-1">
+        <h1 th:text="|Points: *{points}|">Points</h1>
+    </div>
+    <div class="row m-1">
         <h5 th:unless="*{phrase == null}" th:text="*{phrase}" class="font-italic">Phrase</h5>
     </div>
 </div>

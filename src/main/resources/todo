@@ -12,19 +12,27 @@ validations +++ register, add assignment (*edit profile)
 scheduling +++ (assignment dates)
 cache +++ (users and assignments)
 security +++
-5 entities +++
+12 pages +++
+5 entities, controllers, repositories +++
 logger +++
 async (root admin panel data loading) +++
-root admin panel+++
+root admin panel +++
+edit user details page +++
 
-edit user details page
 2 interceptors
 unit testing
 
 
 ----------------
 change all texts
-*** remove bracket in user-details
+about us page
+future page
+*** add notes to creation forms
+*** delete old submission if they exist (assignment service)
 
 
 #SET GLOBAL max_allowed_packet=268435456;   for sql packets
+
+
+----------------
+SOFTUNI REQUIREMENTS

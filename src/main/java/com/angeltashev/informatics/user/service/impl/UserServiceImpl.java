@@ -2,6 +2,8 @@ package com.angeltashev.informatics.user.service.impl;
 
 import com.angeltashev.informatics.exceptions.PageNotFoundException;
 import com.angeltashev.informatics.file.exception.FileStorageException;
+import com.angeltashev.informatics.file.model.DBFile;
+import com.angeltashev.informatics.file.service.DBFileStorageService;
 import com.angeltashev.informatics.user.model.AuthorityEntity;
 import com.angeltashev.informatics.user.model.UserEntity;
 import com.angeltashev.informatics.user.model.binding.UserAssignmentAddBindingModel;
@@ -41,6 +43,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityProcessingService authorityProcessingService;
+    private final DBFileStorageService fileStorageService;
 
     private final UserRepository userRepository;
 
@@ -67,10 +70,14 @@ public class UserServiceImpl implements UserService {
                 UserProfileViewModel.class
         );
         userProfileViewModel.setAuthority(getUserAuthority(userEntity));
-        byte[] profilePicture = userEntity.getProfilePicture();
+        DBFile pictureFile = userEntity.getProfilePicture();
+        byte[] profilePicture = null;
+        if (pictureFile != null) {
+            profilePicture = userEntity.getProfilePicture().getData();
+        }
         String profilePictureString = "";
         if (profilePicture != null) {
-            profilePictureString = Base64.getEncoder().encodeToString(userEntity.getProfilePicture());
+            profilePictureString = Base64.getEncoder().encodeToString(profilePicture);
         }
         userProfileViewModel.setProfilePictureString(profilePictureString);
         return userProfileViewModel;
@@ -89,10 +96,10 @@ public class UserServiceImpl implements UserService {
                 UserVisitViewModel.class
         );
         userVisitViewModel.setAuthority(getUserAuthority(userEntity));
-        byte[] profilePicture = userEntity.getProfilePicture(); //TODO Refactor
+        byte[] profilePicture = userEntity.getProfilePicture().getData();
         String profilePictureString = "";
         if (profilePicture != null) {
-            profilePictureString = Base64.getEncoder().encodeToString(userEntity.getProfilePicture());
+            profilePictureString = Base64.getEncoder().encodeToString(profilePicture);
         }
         userVisitViewModel.setProfilePictureString(profilePictureString);
         log.info("Get user visit profile: Retrieved user view model with username: " + username);
@@ -137,23 +144,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void uploadPicture(String username, MultipartFile file) throws FileStorageException {
-
-        // TODO Refactor and log
-        UserEntity user = this.userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("An error occured."));
-
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
-        try {
-            if (fileName.contains("..")) {
-                throw new FileStorageException("Filename contains invalid characters!");
-            }
-
-            user.setProfilePicture(file.getBytes());
-            this.userRepository.save(user);
-        } catch (IOException e) {
-            throw new FileStorageException("Could not upload picture " + fileName + ". Please try again!", e);
+    public boolean uploadProfilePicture(String username, MultipartFile file) throws FileStorageException {
+        UserEntity user = this.userRepository.findByUsername(username).orElse(null);
+        if (user == null) {
+            log.error("Upload profile picture: Username " + username + " cannot be found");
+            new UsernameNotFoundException("Username" + username + " cannot be found");
         }
+
+        if (file != null) {
+            DBFile dbFile = this.fileStorageService.storeFile(file);
+            String oldPictureId = null;
+            if (user.getProfilePicture() != null) {
+                oldPictureId = user.getProfilePicture().getId();
+            }
+            user.setProfilePicture(dbFile);
+            this.userRepository.saveAndFlush(user);
+            // Deleting old profile picture if it exists (cleans up files) // TODO Implement for submissions if not implemented already
+            if (oldPictureId != null) {
+                log.info("Upload profile picture: Deleting old profile picture");
+                this.fileStorageService.deleteFile(oldPictureId);
+            }
+            log.info("Upload profile picture: Uploaded picture successfully for user " + username);
+            return true;
+        }
+        log.info("Upload profile picture: Picture file was not parsed");
+        return false;
     }
 
     private String getUserAuthority(UserEntity user) {
@@ -225,6 +240,19 @@ public class UserServiceImpl implements UserService {
         student.setAuthorities(Set.of(this.authorityProcessingService.getAdminAuthority()));
         this.userRepository.save(student);
         log.info("Promote student by id: Student with id " + studentId + " promoted to admin successfully");
+        return true;
+    }
+
+    @Override
+    public boolean changePhrase(String username, String phrase) {
+        UserEntity user = this.userRepository.findByUsername(username).orElse(null);
+        if (user == null) {
+            log.error("Change phrase: User with username " + username + " cannot be found");
+            throw new UsernameNotFoundException("User with username " + username + " cannot be found!");
+        }
+        user.setPhrase(phrase);
+        this.userRepository.save(user);
+        log.info("Change phrase: Changed phrase of " + username + " successfully");
         return true;
     }
 

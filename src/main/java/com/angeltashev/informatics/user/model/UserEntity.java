@@ -1,6 +1,7 @@
 package com.angeltashev.informatics.user.model;
 
 import com.angeltashev.informatics.assignment.model.AssignmentEntity;
+import com.angeltashev.informatics.file.model.DBFile;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -71,10 +72,9 @@ public class UserEntity implements UserDetails {
     )
     private Set<AssignmentEntity> assignments;
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "profile_picture")
-    private byte[] profilePicture;
+    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "picture_id")
+    private DBFile profilePicture;
 
 
     // Security

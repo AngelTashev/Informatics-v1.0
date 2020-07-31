@@ -12,6 +12,7 @@ import com.angeltashev.informatics.user.model.view.UserVisitViewModel;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface UserService {
@@ -26,7 +27,8 @@ public interface UserService {
     UserDTO findByEmail(String email);
 
     List<UserAssignmentAddBindingModel> getUserAssignmentAddModels();
-    void uploadPicture(String username, MultipartFile file) throws FileStorageException;
+
+    boolean uploadProfilePicture(String username, MultipartFile file) throws FileStorageException, IOException;
 
     UserDTO getUserDTO(String username);
 
@@ -41,4 +43,6 @@ public interface UserService {
     boolean demoteAdminById(String adminId);
 
     boolean promoteStudentById(String studentId);
+
+    boolean changePhrase(String username, String phrase);
 }
