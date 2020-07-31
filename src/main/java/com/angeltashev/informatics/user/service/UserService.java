@@ -37,4 +37,8 @@ public interface UserService {
     List<UserRoleViewModel> getAllAdmins();
 
     List<UserRoleViewModel> getAllStudents();
+
+    boolean demoteAdminById(String adminId);
+
+    boolean promoteStudentById(String studentId);
 }

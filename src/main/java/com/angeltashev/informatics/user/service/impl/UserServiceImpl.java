@@ -201,6 +201,33 @@ public class UserServiceImpl implements UserService {
         return this.getAllUsersByAuthority("ROLE_STUDENT");
     }
 
+    @Override
+    public boolean demoteAdminById(String adminId) {
+        UserEntity admin = this.userRepository.findById(adminId).orElse(null);
+        if (admin == null) {
+            log.error("Demote admin by id: Admin with id " + adminId + " cannot be found");
+            throw new UsernameNotFoundException("Admin with id " + adminId + " cannot be found!");
+        }
+        admin.setAuthorities(Set.of(this.authorityProcessingService.getStudentAuthority()));
+        this.userRepository.save(admin);
+        log.info("Demote admin by id: Admin with id " + adminId + " demoted to student successfully");
+        return true;
+    }
+
+    @Override
+    public boolean promoteStudentById(String studentId) {
+
+        UserEntity student = this.userRepository.findById(studentId).orElse(null);
+        if (student == null) {
+            log.error("Promote student by id: Student with id " + studentId + " cannot be found");
+            throw new UsernameNotFoundException("Student with id " + studentId + " cannot be found!");
+        }
+        student.setAuthorities(Set.of(this.authorityProcessingService.getAdminAuthority()));
+        this.userRepository.save(student);
+        log.info("Promote student by id: Student with id " + studentId + " promoted to admin successfully");
+        return true;
+    }
+
     private List<UserRoleViewModel> getAllUsersByAuthority(String authority) {
         List<UserEntity> users = this.userRepository.findAll()
                 .stream()

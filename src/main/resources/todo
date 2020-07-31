@@ -13,11 +13,9 @@ scheduling +++ (assignment dates)
 cache +++ (users and assignments)
 security +++
 5 entities +++
-async (root admin panel data loading) +++
 logger +++
-
-
-root admin panel++ (implement promotion and demotion)
+async (root admin panel data loading) +++
+root admin panel+++
 
 edit user details page
 2 interceptors
@@ -26,6 +24,7 @@ unit testing
 
 ----------------
 change all texts
+*** remove bracket in user-details
 
 
 #SET GLOBAL max_allowed_packet=268435456;   for sql packets
