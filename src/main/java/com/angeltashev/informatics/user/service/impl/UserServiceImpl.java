@@ -159,9 +159,9 @@ public class UserServiceImpl implements UserService {
             }
             user.setProfilePicture(dbFile);
             this.userRepository.saveAndFlush(user);
-            // Deleting old profile picture if it exists (cleans up files) // TODO Implement for submissions if not implemented already
+            // Deleting old profile picture if it exists (cleans up files)
             if (oldPictureId != null) {
-                log.info("Upload profile picture: Deleting old profile picture");
+                log.info("Upload profile picture: Deleting old profile picture with id " + oldPictureId);
                 this.fileStorageService.deleteFile(oldPictureId);
             }
             log.info("Upload profile picture: Uploaded picture successfully for user " + username);

@@ -27,7 +27,6 @@ unit testing
 change all texts
 about us page
 future page
-*** delete old submission if they exist (assignment service)
 
 
 #SET GLOBAL max_allowed_packet=268435456;   for sql packets
