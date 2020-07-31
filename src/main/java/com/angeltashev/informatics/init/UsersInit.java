@@ -69,7 +69,7 @@ public class UsersInit implements CommandLineRunner {
             pesho.setUsername("pesho_ivanov.2020");
             pesho.setEmail("pesho@gmail.com");
             pesho.setPassword(passwordEncoder.encode("pesho123"));
-            pesho.getAuthorities().add(this.authorityRepository.findByAuthority("ROLE_USER"));
+            pesho.getAuthorities().add(this.authorityRepository.findByAuthority("ROLE_STUDENT"));
             pesho.setGrade(9);
             pesho.setGradeClass("A");
             pesho.setPhrase("I'm a student!");

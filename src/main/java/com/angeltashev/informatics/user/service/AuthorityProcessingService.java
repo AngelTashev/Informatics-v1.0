@@ -8,5 +8,7 @@ public interface AuthorityProcessingService {
 
     public AuthorityEntity getStudentAuthority();
 
+    public AuthorityEntity getAdminAuthority();
+
     public AuthorityEntity getRootAdminAuthority();
 }

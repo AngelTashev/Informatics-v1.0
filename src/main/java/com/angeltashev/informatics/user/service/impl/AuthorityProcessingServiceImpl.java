@@ -29,6 +29,12 @@ public class AuthorityProcessingServiceImpl implements AuthorityProcessingServic
     }
 
     @Override
+    public AuthorityEntity getAdminAuthority() {
+        log.info("Get admin authority: Retrieving admin authority");
+        return this.authorityRepository.findByAuthority("ROLE_ADMIN");
+    }
+
+    @Override
     public AuthorityEntity getRootAdminAuthority() {
         log.info("Get root admin authority: Retrieving root admin authority");
         return this.authorityRepository.findByAuthority("ROLE_ROOT_ADMIN");

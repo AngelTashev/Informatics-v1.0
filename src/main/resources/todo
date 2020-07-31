@@ -13,13 +13,13 @@ scheduling +++ (assignment dates)
 cache +++ (users and assignments)
 security +++
 5 entities +++
+async (root admin panel data loading) +++
+logger +++
 
-logger ++
 
-root admin panel+ (add async to load data)
+root admin panel++ (implement promotion and demotion)
 
 edit user details page
-async (root admin panel data loading)
 2 interceptors
 unit testing
 

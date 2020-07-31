@@ -9,6 +9,7 @@ import com.angeltashev.informatics.user.model.binding.UserDTO;
 import com.angeltashev.informatics.user.model.binding.UserRegisterBindingModel;
 import com.angeltashev.informatics.user.model.view.UserHomeViewModel;
 import com.angeltashev.informatics.user.model.view.UserProfileViewModel;
+import com.angeltashev.informatics.user.model.view.UserRoleViewModel;
 import com.angeltashev.informatics.user.model.view.UserVisitViewModel;
 import com.angeltashev.informatics.user.repository.UserRepository;
 import com.angeltashev.informatics.user.service.AuthorityProcessingService;
@@ -188,6 +189,33 @@ public class UserServiceImpl implements UserService {
     public List<UserEntity> updateAllStudents() {
         log.info("Update all students: Updating users cache!");
         return getAllUsers();
+    }
+
+    @Override
+    public List<UserRoleViewModel> getAllAdmins() {
+        return this.getAllUsersByAuthority("ROLE_ADMIN");
+    }
+
+    @Override
+    public List<UserRoleViewModel> getAllStudents() {
+        return this.getAllUsersByAuthority("ROLE_STUDENT");
+    }
+
+    private List<UserRoleViewModel> getAllUsersByAuthority(String authority) {
+        List<UserEntity> users = this.userRepository.findAll()
+                .stream()
+                .filter(user -> {
+                    Set<String> authorities = user.getAuthorities()
+                            .stream()
+                            .map(AuthorityEntity::getAuthority)
+                            .collect(Collectors.toSet());
+                    if (authorities.contains(authority)) return true;
+                    return false;
+                })
+                .collect(Collectors.toList());
+        return users.stream()
+                .map(user -> this.modelMapper.map(user, UserRoleViewModel.class))
+                .collect(Collectors.toList());
     }
 
     @Cacheable("users")
