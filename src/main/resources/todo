@@ -16,11 +16,11 @@ security +++
 
 logger ++
 
-edit user details page
+root admin panel+ (add async to load data)
 
-root admin panel
+edit user details page
+async (root admin panel data loading)
 2 interceptors
-async
 unit testing
 
 
