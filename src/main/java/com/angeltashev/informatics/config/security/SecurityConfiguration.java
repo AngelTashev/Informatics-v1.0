@@ -39,6 +39,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // TODO Finish configuration
         http
+                .headers() // Add xss protection
+                .and()
                 .authorizeRequests()
                 .antMatchers("/index", "/files/upload").permitAll()
                 .antMatchers("/users/register", "/users/login").anonymous()
@@ -56,7 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(604800)
                 .and()
                 .logout()
-                .deleteCookies("JSESSIONID")
+                .deleteCookies("JSESSIONID", "rememberlogin")
                 .logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
