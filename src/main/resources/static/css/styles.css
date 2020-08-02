@@ -27,33 +27,9 @@ body {
 	font-style: italic;
 }
 
-h1 {
+.h1 .h2 .h3 .h4 .h5 .h6 {
 	font-family: exo;
 	font-weight: 600;
-}
-
-h2 {
-	font-family: exo;
-}
-
-h3 {
-	font-family: exo;
-}
-
-h4 {
-	font-family: exo;
-}
-
-h5 {
-	font-family: exo;
-}
-
-h6 {
-	font-family: exo;
-}
-
-a {
-	font-family: exo;
 }
 
 .fixed-top {

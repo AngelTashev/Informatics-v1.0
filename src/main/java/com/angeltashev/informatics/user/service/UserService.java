@@ -5,10 +5,7 @@ import com.angeltashev.informatics.user.model.UserEntity;
 import com.angeltashev.informatics.user.model.binding.UserAssignmentAddBindingModel;
 import com.angeltashev.informatics.user.model.binding.UserDTO;
 import com.angeltashev.informatics.user.model.binding.UserRegisterBindingModel;
-import com.angeltashev.informatics.user.model.view.UserHomeViewModel;
-import com.angeltashev.informatics.user.model.view.UserProfileViewModel;
-import com.angeltashev.informatics.user.model.view.UserRoleViewModel;
-import com.angeltashev.informatics.user.model.view.UserVisitViewModel;
+import com.angeltashev.informatics.user.model.view.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,4 +42,6 @@ public interface UserService {
     boolean promoteStudentById(String studentId);
 
     boolean changePhrase(String username, String phrase);
+
+    List<UserAboutViewModel> getAllAdminsPictures();
 }

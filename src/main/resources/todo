@@ -7,7 +7,7 @@ error handling - default error page +++
 home page +++
 assignment details +++
 all assignments +++
-login page +++ ***(remember password needs implementation)
+login page +++
 validations +++ register, add assignment (*edit profile)
 scheduling +++ (assignment dates)
 cache +++ (users and assignments)
@@ -20,8 +20,8 @@ root admin panel +++
 edit user details page +++
 contact us page +++
 2 interceptors +++
+about us page +++ (show teachers)
 
-about us page
 unit testing
 
 

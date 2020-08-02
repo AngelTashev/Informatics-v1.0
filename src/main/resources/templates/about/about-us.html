@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"/>
+    <title>About us</title>
+    <link rel="stylesheet" th:href="@{/css/profile.css}"/>
+</head>
+<body>
+
+<th:block th:replace="~{/fragments/nav}"/>
+
+<header class="text-center py-5 bg-image-full mb-5"
+        style="background-image: url('/img/informatics-people.jpg'); background-attachment: fixed; height: 600px; background-position: center">
+    <!--    <img class="imagee" src="../img/informatics-people.jpg" style="width: 100%;">-->
+</header>
+
+<!-- Content section -->
+<section class="py-5">
+    <div class="container" style="background-attachment: fixed;">
+        <h1>Who are we?</h1>
+        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit,
+            rerum quos facilis repellat architecto commodi officia atque nemo facere
+            eum non illo voluptatem quae delectus odit vel itaque amet.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit,
+            rerum quos facilis repellat architecto commodi officia atque nemo facere
+            eum non illo voluptatem quae delectus odit vel itaque amet.</p>
+    </div>
+</section>
+
+<section class="py-5 mt-5">
+    <div class="container">
+        <h1 th:background="">Our teachers</h1>
+        <div class="mt-5">
+            <table>
+                <div th:each="user : ${users}">
+                    <tr>
+                        <img th:if="${user.profilePictureString == ''}" class="rounded-circle"
+                             th:src="@{/img/default-pic.png}"
+                             style="width: 200px; height: 200px;"/>
+                        <img th:unless="${user.profilePictureString == ''}" class="rounded-circle"
+                             th:src="${'data:image/jpg;base64,'+ user.profilePictureString}"
+                             style="width: 200px; height: 200px;"/>
+                    </tr>
+                    <tr>
+                        <h1 th:text="${user.fullName}"  class="rounded p-2 mb-5">Georgi Georgiev</h1>
+                    </tr>
+                </div>
+            </table>
+        </div>
+    </div>
+</section>
+<section class="py-5">
+    <div class="container">
+        <h1>Our goal</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit,
+            rerum quos facilis repellat architecto commodi officia atque nemo facere
+            eum non illo voluptatem quae delectus odit vel itaque amet.</p>
+    </div>
+</section>
+
+<th:block th:include="~{/fragments/footer}"/>
+</body>
+</html>

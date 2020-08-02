@@ -9,10 +9,7 @@ import com.angeltashev.informatics.user.model.UserEntity;
 import com.angeltashev.informatics.user.model.binding.UserAssignmentAddBindingModel;
 import com.angeltashev.informatics.user.model.binding.UserDTO;
 import com.angeltashev.informatics.user.model.binding.UserRegisterBindingModel;
-import com.angeltashev.informatics.user.model.view.UserHomeViewModel;
-import com.angeltashev.informatics.user.model.view.UserProfileViewModel;
-import com.angeltashev.informatics.user.model.view.UserRoleViewModel;
-import com.angeltashev.informatics.user.model.view.UserVisitViewModel;
+import com.angeltashev.informatics.user.model.view.*;
 import com.angeltashev.informatics.user.repository.UserRepository;
 import com.angeltashev.informatics.user.service.AuthorityProcessingService;
 import com.angeltashev.informatics.user.service.UserService;
@@ -254,6 +251,35 @@ public class UserServiceImpl implements UserService {
         this.userRepository.save(user);
         log.info("Change phrase: Changed phrase of " + username + " successfully");
         return true;
+    }
+
+    @Override
+    public List<UserAboutViewModel> getAllAdminsPictures() {
+
+        log.info("Get all admins with pictures: Retrieving all admins with pictures");
+        return this.userRepository.findAll()
+                .stream()
+                .filter(user -> {
+                    Set<String> authorities = user.getAuthorities()
+                            .stream()
+                            .map(AuthorityEntity::getAuthority)
+                            .collect(Collectors.toSet());
+                    if (authorities.contains("ROLE_ADMIN")) return true;
+                    return false;
+                })
+                .map(user -> {
+                    UserAboutViewModel viewModel = new UserAboutViewModel();
+                    viewModel.setFullName(user.getFullName());
+
+                    String profilePictureString = "";
+                    DBFile profilePicture = user.getProfilePicture();
+                    if (profilePicture != null) {
+                        profilePictureString = Base64.getEncoder().encodeToString(profilePicture.getData());
+                    }
+                    viewModel.setProfilePictureString(profilePictureString);
+                    return viewModel;
+                })
+                .collect(Collectors.toList());
     }
 
     private List<UserRoleViewModel> getAllUsersByAuthority(String authority) {

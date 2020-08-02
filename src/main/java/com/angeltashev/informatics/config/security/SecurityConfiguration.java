@@ -42,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .headers() // Add xss protection
                 .and()
                 .authorizeRequests()
-                .antMatchers("/index", "/contact-us").permitAll()
+                .antMatchers("/index", "/contact-us", "/about-us").permitAll()
                 .antMatchers("/users/register", "/users/login").anonymous()
                 .antMatchers("/home", "/users/**").authenticated()
                 .antMatchers("root-admin-panel", "/root-admin-panel/**").hasRole("ROOT_ADMIN")

@@ -23,6 +23,12 @@ public class HomeController {
         return "index/index";
     }
 
+    @GetMapping("/about-us")
+    public String getAboutUs(Model model) {
+        model.addAttribute("users", this.userService.getAllAdminsPictures());
+        return "about/about-us";
+    }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/home")
     public String getHome(@AuthenticationPrincipal Principal principal, Model model) {
