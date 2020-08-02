@@ -23,9 +23,6 @@ public class FileController {
 
     private final DBFileStorageService fileStorageService;
 
-    // TODO Refactor User to upload and download picture
-    // TODO Refactor Assignment to upload and download resources
-
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/resources/download/{id}")
     public void downloadResources(@PathVariable("id") String resourcesId, HttpServletResponse response) {

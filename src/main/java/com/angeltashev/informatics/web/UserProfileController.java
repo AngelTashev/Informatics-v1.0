@@ -34,10 +34,6 @@ public class UserProfileController {
             Model model
     ) {
 
-        // TODO Change picture border depending on authority
-        // TODO Add remaining info to profile
-        // TODO Add a way to change profile info
-        
         UserProfileViewModel user = this.userService.getUserProfile(principal.getName());
         model.addAttribute("userView", user);
         log.info("Get user profile: Retrieving user profile: " + user.getUsername());
@@ -47,7 +43,6 @@ public class UserProfileController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{username}")
     public String getUserByUsername(@PathVariable("username") String username, Model model) throws PageNotFoundException {
-        // TODO Fix redirect to home page with losing authentication when searching for a wrong username
         UserVisitViewModel user = this.userService.getUserVisitProfile(username);
         if (user == null) {
             log.error("Get user by username: Username is not found");

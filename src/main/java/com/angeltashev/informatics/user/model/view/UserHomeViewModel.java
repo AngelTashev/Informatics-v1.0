@@ -12,5 +12,4 @@ public class UserHomeViewModel {
 
     private String fullName;
     private Set<AssignmentHomeViewModel> assignments;
-    // TODO Assignments
 }

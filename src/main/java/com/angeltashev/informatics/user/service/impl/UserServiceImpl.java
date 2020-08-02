@@ -58,7 +58,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    // TODO Log after refactoring
     @Override
     public UserProfileViewModel getUserProfile(String username) {
         UserEntity userEntity = this.userRepository.findByUsername(username).orElse(new UserEntity());
@@ -93,10 +92,10 @@ public class UserServiceImpl implements UserService {
                 UserVisitViewModel.class
         );
         userVisitViewModel.setAuthority(getUserAuthority(userEntity));
-        byte[] profilePicture = userEntity.getProfilePicture().getData();
         String profilePictureString = "";
+        DBFile profilePicture = userEntity.getProfilePicture();
         if (profilePicture != null) {
-            profilePictureString = Base64.getEncoder().encodeToString(profilePicture);
+            profilePictureString = Base64.getEncoder().encodeToString(profilePicture.getData());
         }
         userVisitViewModel.setProfilePictureString(profilePictureString);
         log.info("Get user visit profile: Retrieved user view model with username: " + username);

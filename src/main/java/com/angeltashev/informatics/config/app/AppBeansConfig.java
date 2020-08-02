@@ -24,11 +24,6 @@ public class AppBeansConfig {
                 .addMapping(AssignmentEntity::getName, AssignmentHomeViewModel::setName)
                 .addMapping(AssignmentEntity::getDescription, AssignmentHomeViewModel::setDescription);
 
-        // TODO
-//        TypeMap<UserAssignmentAddBindingModel, UserEntity> userAssignmentAddBindingMap = modelMapper
-//                .createTypeMap(UserAssignmentAddBindingModel.class, UserEntity.class)
-//                .addMapping(UserAssignmentAddBindingModel::getUsername, UserEntity::setUsername);
-
         assignmentHomeViewMap.includeBase(AssignmentEntity.class, AssignmentHomeViewModel.class);
         return modelMapper;
     }
