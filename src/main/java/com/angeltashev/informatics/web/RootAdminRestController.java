@@ -1,5 +1,7 @@
 package com.angeltashev.informatics.web;
 
+import com.angeltashev.informatics.messages.model.view.MessageViewModel;
+import com.angeltashev.informatics.messages.service.MessageService;
 import com.angeltashev.informatics.user.model.view.UserRoleViewModel;
 import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
@@ -20,6 +22,7 @@ import java.util.List;
 public class RootAdminRestController {
 
     private final UserService userService;
+    private final MessageService messageService;
 
     @PreAuthorize("hasRole('ROLE_ROOT_ADMIN')")
     @GetMapping("/admins-rest")
@@ -33,6 +36,13 @@ public class RootAdminRestController {
     public List<UserRoleViewModel> getAllStudents() {
         log.info("Get all students (rest): Loading async data into all students table");
         return this.userService.getAllStudents();
+    }
+
+    @PreAuthorize("hasRole('ROLE_ROOT_ADMIN')")
+    @GetMapping("/messages-rest")
+    public List<MessageViewModel> getMessages() {
+        log.info("Get all messages (rest): Loading async data into messages table");
+        return this.messageService.getAllMessages();
     }
 
 }

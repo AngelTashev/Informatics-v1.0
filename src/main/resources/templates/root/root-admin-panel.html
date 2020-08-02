@@ -7,12 +7,19 @@
 <body style="background-color: black; height: 800px;">
 <th:block th:include="~{/fragments/nav}"/>
 
-<div class="row p-2 w-100 h-100 d-flex justify-content-center mt-5">
+<div class="row p-2 w-100 h-50 d-flex justify-content-center mt-5">
     <div class="col-6 text-center mt-5">
         <a th:href="@{/root-admin-panel/admins}" style="color: white; font-family: exo; font-size: 60px;">All admins</a>
     </div>
     <div class="col-6 text-center mt-5">
         <a th:href="@{/root-admin-panel/students}" style="color: white; font-family: exo; font-size: 60px;">All students</a>
+    </div>
+
+</div>
+
+<div class="row p-2 w-100 h-50 d-flex justify-content-center mt-5">
+    <div class="col-6 text-center mt-5">
+        <a th:href="@{/root-admin-panel/messages}" style="color: white; font-family: exo; font-size: 60px;">Messages</a>
     </div>
 
 </div>

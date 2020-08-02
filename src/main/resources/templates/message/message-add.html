@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Contact us</title>
+  <th:block th:include="~{fragments/head}"/>
+  <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+    <th:block th:include="~{/fragments/nav}"/>
+
+    <!-- Content section -->
+    <div class="container-fluid">
+  <div class="row no-gutter mgcls">
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <form th:object="${messageModel}" th:action="@{/contact-us}" th:method="POST">
+                <h3 class="login-heading mb-4">What's on your mind?</h3>
+
+                <!-- Title -->
+                <div class="mx-auto mb-1" th:each="e : ${#fields.errors('fullName')}">
+                  <small th:text="${e}" class="text-danger"></small>
+                </div>
+                <div class="form-label-group">
+                  <input th:field="*{fullName}" type="text" id="fullName" name="fullName" class="form-control" placeholder="Full name" required autofocus>
+                  <label for="fullName">Full name</label>
+                </div>
+
+                <!-- Email -->
+                <div class="mx-auto mb-1" th:each="e : ${#fields.errors('email')}">
+                  <small th:text="${e}" class="text-danger"></small>
+                </div>
+                <div class="form-label-group">
+                  <input th:field="*{email}" type="text" id="email" name="email" class="form-control" placeholder="Email" required>
+                  <label for="email">Email</label>
+                </div>
+
+                <!-- Description -->
+                <div class="mx-auto mb-1" th:each="e : ${#fields.errors('message')}">
+                  <small th:text="${e}" class="text-danger"></small>
+                </div>
+                <div class="form-label-group">
+                  <textarea minlength="12" maxlength="400" th:field="*{message}" style="min-height: 200px;" type="text" id="message" name="message" class="form-control" placeholder="Message" required></textarea>
+                  <!--                  <label for="description">Description</label>-->
+                </div>
+
+                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Send!</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

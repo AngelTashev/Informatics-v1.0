@@ -18,15 +18,15 @@ logger +++
 async (root admin panel data loading) +++
 root admin panel +++
 edit user details page +++
+contact us page +++
+2 interceptors +++
 
-2 interceptors
+about us page
 unit testing
 
 
 ----------------
-change all texts
-about us page
-future page
+change all texts ***
 
 
 #SET GLOBAL max_allowed_packet=268435456;   for sql packets

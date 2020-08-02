@@ -1,5 +1,6 @@
 package com.angeltashev.informatics.web;
 
+import com.angeltashev.informatics.messages.service.MessageService;
 import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RootAdminController {
 
     private final UserService userService;
+    private final MessageService messageService;
 
     @PreAuthorize("hasRole('ROLE_ROOT_ADMIN')")
     @GetMapping
@@ -57,5 +59,27 @@ public class RootAdminController {
         log.info("Promote student by id (controller): Requested promotion of student with id: " + studentId);
         this.userService.promoteStudentById(studentId);
         return "redirect:/root-admin-panel/students";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ROOT_ADMIN')")
+    @GetMapping("/messages")
+    public String getMessagesView() {
+        return "root/messages-details";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ROOT_ADMIN')")
+    @GetMapping("/messages/delete/{id}")
+    public String deleteMessageById(@PathVariable("id") String messageId) {
+        log.info("Delete message by id (controller): Requested deletion of message with id: " + messageId);
+        this.messageService.deleteMessageById(messageId);
+        return "redirect:/root-admin-panel/messages";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ROOT_ADMIN')")
+    @GetMapping("/messages/delete/all")
+    public String deleteAllMessages() {
+        log.info("Delete all messages (controller): Requested deletion of all messages");
+        this.messageService.deleteAllMessages();
+        return "redirect:/root-admin-panel/messages";
     }
 }
