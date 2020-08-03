@@ -60,7 +60,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserProfileViewModel getUserProfile(String username) {
-        UserEntity userEntity = this.userRepository.findByUsername(username).orElse(new UserEntity());
+        UserEntity userEntity = this.userRepository.findByUsername(username).orElse(null);
+        if (userEntity == null) {
+            log.error("Get user profile: User with username " + username + " cannot be found");
+            throw new UsernameNotFoundException("User with username " + username + " cannot be found");
+        }
         UserProfileViewModel userProfileViewModel = this.modelMapper.map(
                 userEntity,
                 UserProfileViewModel.class
@@ -116,16 +120,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO findByUsername(String username) {
         UserEntity user = this.userRepository.findByUsername(username).orElse(null);
-//        if (user == null)
-//            log.info("Find by username: user with this username does not exist");
         return user != null ? this.modelMapper.map(user, UserDTO.class) : null;
     }
 
     @Override
     public UserDTO findByEmail(String email) {
         UserEntity user = this.userRepository.findByEmail(email).orElse(null);
-//        if (user == null)
-//            log.info("Find by email: user with this email does not exist");
         return user != null ? this.modelMapper.map(user, UserDTO.class) : null;
     }
 
@@ -144,7 +144,7 @@ public class UserServiceImpl implements UserService {
         UserEntity user = this.userRepository.findByUsername(username).orElse(null);
         if (user == null) {
             log.error("Upload profile picture: Username " + username + " cannot be found");
-            new UsernameNotFoundException("Username" + username + " cannot be found");
+            throw new UsernameNotFoundException("Username " + username + " cannot be found");
         }
 
         if (file != null) {
@@ -188,6 +188,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean addPointsToUser(String username, Integer points) {
         UserEntity userEntity = this.userRepository.findByUsername(username).orElse(null);
+        if (userEntity == null) {
+            log.error("Add points to user: Username " + username + " cannot be found");
+            throw new UsernameNotFoundException("Username " + username + " cannot be found");
+        }
         Integer currentPoints = userEntity.getPoints();
         userEntity.setPoints(currentPoints + points);
         log.info("Add points to user: Added " + points + " points to " + username);
