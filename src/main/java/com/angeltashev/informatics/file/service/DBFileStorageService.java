@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class DBFileStorageService {
     private final DBFileRepository fileRepo;
 
     public DBFile storeFile(MultipartFile file) throws FileStorageException {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
         try {
             if (fileName.contains("..")) {
