@@ -1,4 +1,4 @@
-package com.angeltashev.informatics.user.service.impl;
+package com.angeltashev.informatics.user;
 
 import com.angeltashev.informatics.assignment.model.AssignmentEntity;
 import com.angeltashev.informatics.exceptions.PageNotFoundException;
@@ -14,6 +14,7 @@ import com.angeltashev.informatics.user.model.view.*;
 import com.angeltashev.informatics.user.repository.UserRepository;
 import com.angeltashev.informatics.user.service.AuthorityProcessingService;
 import com.angeltashev.informatics.user.service.UserService;
+import com.angeltashev.informatics.user.service.impl.UserServiceImpl;
 import org.hsqldb.rights.User;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;

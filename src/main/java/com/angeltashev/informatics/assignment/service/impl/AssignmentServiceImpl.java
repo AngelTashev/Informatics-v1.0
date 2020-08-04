@@ -100,7 +100,7 @@ public class AssignmentServiceImpl implements AssignmentService {
             log.info("Add assignment: Added assignment " + assignment.getName() + " to " + username);
             this.assignmentRepository.saveAndFlush(assignmentEntity);
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -160,12 +160,13 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     public boolean deleteAssignmentById(String assignmentId) {
-        try {
-            this.assignmentRepository.deleteById(assignmentId);
-            log.info("Delete assignment by id: Deleted assignment with id: " + assignmentId);
-        } catch (Exception e) {
+        AssignmentEntity assignmentEntity = this.assignmentRepository.findById(assignmentId).orElse(null);
+        if (assignmentEntity == null) {
             log.error("Delete assignment by id: Assignment with id " + assignmentId + " does not exist");
+            throw new InvalidArgumentIdException("Delete assignment by id: Assignment with id " + assignmentId + " does not exist");
         }
+        this.assignmentRepository.delete(assignmentEntity);
+        log.info("Delete assignment by id: Deleted assignment with id: " + assignmentId);
         return true;
     }
 

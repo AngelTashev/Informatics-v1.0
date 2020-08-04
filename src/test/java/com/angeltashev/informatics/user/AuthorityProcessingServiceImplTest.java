@@ -1,9 +1,10 @@
-package com.angeltashev.informatics.user.service.impl;
+package com.angeltashev.informatics.user;
 
 import com.angeltashev.informatics.user.model.AuthorityEntity;
 import com.angeltashev.informatics.user.repository.AuthorityRepository;
 import com.angeltashev.informatics.user.service.AuthorityProcessingService;
 import com.angeltashev.informatics.user.service.UserService;
+import com.angeltashev.informatics.user.service.impl.AuthorityProcessingServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
