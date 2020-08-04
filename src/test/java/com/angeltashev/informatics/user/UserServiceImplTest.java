@@ -45,21 +45,20 @@ import static org.mockito.Mockito.*;
 public class UserServiceImplTest {
 
     // User
-    private String VALID_USER_ID = "peshoId";
-    private String VALID_FULLNAME = "Pesho Ivanov";
-    private String VALID_USERNAME = "pesho.ivanov";
-    private String VALID_EMAIL = "pesho@ivanov.bg";
-    private String VALID_PHRASE = "Hello there!";
-    private String VALID_PASSWORD = "pesho123";
-    private Integer VALID_GRADE = 12;
-    private String VALID_GRADE_CLASS = "A";
-    private Integer VALID_POINTS = 100;
-    private String VALID_PICTURE = "";
+    private final String VALID_USER_ID = "peshoId";
+    private final String VALID_FULLNAME = "Pesho Ivanov";
+    private final String VALID_USERNAME = "pesho.ivanov";
+    private final String VALID_EMAIL = "pesho@ivanov.bg";
+    private final String VALID_PHRASE = "Hello there!";
+    private final String VALID_PASSWORD = "pesho123";
+    private final Integer VALID_GRADE = 12;
+    private final String VALID_GRADE_CLASS = "A";
+    private final Integer VALID_POINTS = 100;
     // Authority
-    private String VALID_STUDENT_ID = "studentId";
-    private String VALID_ADMIN_ID = "adminId";
-    private String VALID_STUDENT_AUTHORITY = "ROLE_STUDENT";
-    private String VALID_ADMIN_AUTHORITY = "ROLE_ADMIN";
+    private final String VALID_STUDENT_ID = "studentId";
+    private final String VALID_ADMIN_ID = "adminId";
+    private final String VALID_STUDENT_AUTHORITY = "ROLE_STUDENT";
+    private final String VALID_ADMIN_AUTHORITY = "ROLE_ADMIN";
 
     UserEntity userEntity;
     AuthorityEntity studentAuthority;

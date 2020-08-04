@@ -1,13 +1,12 @@
 package com.angeltashev.informatics.web;
 
-import com.angeltashev.informatics.messages.model.view.MessageViewModel;
-import com.angeltashev.informatics.messages.service.MessageService;
+import com.angeltashev.informatics.message.model.view.MessageViewModel;
+import com.angeltashev.informatics.message.service.MessageService;
 import com.angeltashev.informatics.user.model.view.UserRoleViewModel;
 import com.angeltashev.informatics.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

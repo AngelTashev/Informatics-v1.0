@@ -1,4 +1,4 @@
-package com.angeltashev.informatics.messages.model;
+package com.angeltashev.informatics.message.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

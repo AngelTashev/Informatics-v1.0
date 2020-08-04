@@ -1,4 +1,4 @@
-package com.angeltashev.informatics.messages.model.view;
+package com.angeltashev.informatics.message.model.view;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

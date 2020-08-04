@@ -24,10 +24,10 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class DBFileStorageServiceTest {
 
-    private String VALID_ID = "validId";
-    private String VALID_FILE_NAME = "validFileName.txt";
-    private String VALID_FILE_TYPE = "validFileType";
-    private byte[] VALID_DATA = new byte[] {11, 11};
+    private final String VALID_ID = "validId";
+    private final String VALID_FILE_NAME = "validFileName.txt";
+    private final String VALID_FILE_TYPE = "validFileType";
+    private final byte[] VALID_DATA = new byte[] {11, 11};
 
     private DBFile dbFile;
 

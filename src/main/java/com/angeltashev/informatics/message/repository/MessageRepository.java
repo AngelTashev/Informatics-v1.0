@@ -1,6 +1,6 @@
-package com.angeltashev.informatics.messages.repository;
+package com.angeltashev.informatics.message.repository;
 
-import com.angeltashev.informatics.messages.model.MessageEntity;
+import com.angeltashev.informatics.message.model.MessageEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

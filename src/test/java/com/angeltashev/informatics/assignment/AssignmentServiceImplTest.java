@@ -38,12 +38,12 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class AssignmentServiceImplTest {
 
-    private String VALID_ID = "validId";
-    private String VALID_NAME = "validName";
-    private String VALID_DESCRIPTION = "validDescription";
-    private Integer VALID_POINTS = 50;
-    private LocalDateTime VALID_DUE_DATE = LocalDateTime.now().plusDays(3);
-    private boolean VALID_ENABLED = true;
+    private final String VALID_ID = "validId";
+    private final String VALID_NAME = "validName";
+    private final String VALID_DESCRIPTION = "validDescription";
+    private final Integer VALID_POINTS = 50;
+    private final LocalDateTime VALID_DUE_DATE = LocalDateTime.now().plusDays(3);
+    private final boolean VALID_ENABLED = true;
 
     private AssignmentService serviceToTest;
     private ModelMapper realMapper;

@@ -1,7 +1,7 @@
 package com.angeltashev.informatics.web;
 
-import com.angeltashev.informatics.messages.model.binding.MessageAddBindingModel;
-import com.angeltashev.informatics.messages.service.MessageService;
+import com.angeltashev.informatics.message.model.binding.MessageAddBindingModel;
+import com.angeltashev.informatics.message.service.MessageService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -21,12 +21,14 @@ edit user details page +++
 contact us page +++
 2 interceptors +++
 about us page +++ (show teachers)
-
 user service unit testing +++
 authority service unit testing +++
 file service unit testing +++
-assignment service unit testing
-messages service unit testing
+assignment service unit testing +++
+messages service unit testing +++
+
+unit testing (helpers)
+integration testing (controllers)
 
 
 

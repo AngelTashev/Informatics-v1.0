@@ -1,7 +1,7 @@
-package com.angeltashev.informatics.messages.service;
+package com.angeltashev.informatics.message.service;
 
-import com.angeltashev.informatics.messages.model.binding.MessageAddBindingModel;
-import com.angeltashev.informatics.messages.model.view.MessageViewModel;
+import com.angeltashev.informatics.message.model.binding.MessageAddBindingModel;
+import com.angeltashev.informatics.message.model.view.MessageViewModel;
 
 import java.util.List;
 

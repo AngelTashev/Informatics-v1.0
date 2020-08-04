@@ -19,14 +19,14 @@ import static org.mockito.Mockito.*;
 public class AuthorityProcessingServiceImplTest {
 
     // Authority
-    private String VALID_STUDENT_ID = "studentId";
-    private String VALID_STUDENT_AUTHORITY = "ROLE_STUDENT";
+    private final String VALID_STUDENT_ID = "studentId";
+    private final String VALID_STUDENT_AUTHORITY = "ROLE_STUDENT";
 
-    private String VALID_ADMIN_ID = "adminId";
-    private String VALID_ADMIN_AUTHORITY = "ROLE_ADMIN";
+    private final String VALID_ADMIN_ID = "adminId";
+    private final String VALID_ADMIN_AUTHORITY = "ROLE_ADMIN";
 
-    private String VALID_ROOT_ADMIN_ID = "rootAdminId";
-    private String VALID_ROOT_ADMIN_AUTHORITY = "ROLE_ROOT_ADMIN";
+    private final String VALID_ROOT_ADMIN_ID = "rootAdminId";
+    private final String VALID_ROOT_ADMIN_AUTHORITY = "ROLE_ROOT_ADMIN";
 
     private AuthorityProcessingService serviceToTest;
 

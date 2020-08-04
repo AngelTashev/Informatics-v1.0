@@ -1,10 +1,10 @@
-package com.angeltashev.informatics.messages.service.impl;
+package com.angeltashev.informatics.message.service.impl;
 
-import com.angeltashev.informatics.messages.model.MessageEntity;
-import com.angeltashev.informatics.messages.model.binding.MessageAddBindingModel;
-import com.angeltashev.informatics.messages.model.view.MessageViewModel;
-import com.angeltashev.informatics.messages.repository.MessageRepository;
-import com.angeltashev.informatics.messages.service.MessageService;
+import com.angeltashev.informatics.message.model.MessageEntity;
+import com.angeltashev.informatics.message.model.binding.MessageAddBindingModel;
+import com.angeltashev.informatics.message.model.view.MessageViewModel;
+import com.angeltashev.informatics.message.repository.MessageRepository;
+import com.angeltashev.informatics.message.service.MessageService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;

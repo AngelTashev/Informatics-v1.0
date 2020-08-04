@@ -1,4 +1,4 @@
-package com.angeltashev.informatics.messages.model.binding;
+package com.angeltashev.informatics.message.model.binding;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
