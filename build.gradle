@@ -37,6 +37,7 @@ dependencies {
     }
     testImplementation('org.mockito:mockito-core')
     testImplementation('org.hsqldb:hsqldb')
+    testImplementation('org.springframework.security:spring-security-test:5.3.3.RELEASE')
 //    testImplementation 'org.springframework.security:spring-security-test'
 //    testImplementation 'org.junit.platform:junit-platform-runner:1.6.2'
 }
