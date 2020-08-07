@@ -14,22 +14,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ExtendWith(MockitoExtension.class)
-public class FileControllerTest {
+public class UserProfileControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void downloadResourcesShouldReturnStatusFound() throws Exception {
-        this.mockMvc.perform(get("/files/resources/download/{id}", "validId"))
-                .andExpect(status().isFound());
-        // TODO
+    public void getIndexShouldReturnStatusOk() throws Exception {
+        this.mockMvc.perform(get("/"))
+                .andExpect(status().isOk());
     }
 
-    @Test
-    public void downloadSubmissionShouldReturnStatusFound() throws Exception {
-        this.mockMvc.perform(get("/files/submissions/download/{id}", "validId"))
-                .andExpect(status().isFound());
-        // TODO
-    }
+
 }
