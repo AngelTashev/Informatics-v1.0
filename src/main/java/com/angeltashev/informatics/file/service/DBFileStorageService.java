@@ -19,6 +19,7 @@ import java.util.Objects;
 @Service
 public class DBFileStorageService {
 
+    private final CloudinaryService cloudinaryService;
     private final DBFileRepository fileRepo;
 
     public DBFile storeFile(MultipartFile file) throws FileStorageException {
@@ -30,8 +31,18 @@ public class DBFileStorageService {
                 throw new FileStorageException("Filename contains invalid characters!");
             }
 
+
             DBFile dbFile = new DBFile(fileName, file.getContentType(), file.getBytes());
+            String fileType = file.getContentType();
+            if (file.getContentType().equals("image/x-png") ||
+                file.getContentType().equals("image/jpeg") ||
+                file.getContentType().equals("image/jpg")) {
+                String backupUrl = this.cloudinaryService.uploadFile(file);
+                System.out.println();
+                dbFile.setBackupUrl(backupUrl);
+            }
             log.info("Store file: Successfully stored file " + fileName + ", type: " + file.getContentType());
+
             return this.fileRepo.save(dbFile);
         } catch (IOException | FileStorageException e) {
             log.error("Store file: Could not store file " + fileName + ". Please try again!");

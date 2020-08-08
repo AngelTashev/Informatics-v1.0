@@ -32,3 +32,9 @@ informatics:
   cleanup-schedule-time: "0 0,30 * ? * *"
   update-cache-schedule-time: "0 0,6,12,18,24,30,36,42,48,54 * ? * *"
 #  "0 */30 * ? * *"
+
+# Cloudinary properties
+cloudinary:
+  cloud-name: dthoksfe5
+  api-key: 644331637917722
+  api-secret: pC9S2PY0SKIn0gNCM-NGaftwwBE

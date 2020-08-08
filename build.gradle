@@ -25,6 +25,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation 'com.cloudinary:cloudinary:1.0.14'
     implementation 'org.modelmapper:modelmapper:2.3.8'
     implementation 'junit:junit:4.12'
 

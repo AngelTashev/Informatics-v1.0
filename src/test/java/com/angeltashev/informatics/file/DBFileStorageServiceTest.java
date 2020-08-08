@@ -3,6 +3,7 @@ package com.angeltashev.informatics.file;
 import com.angeltashev.informatics.file.exception.FileStorageException;
 import com.angeltashev.informatics.file.model.DBFile;
 import com.angeltashev.informatics.file.repository.DBFileRepository;
+import com.angeltashev.informatics.file.service.CloudinaryService;
 import com.angeltashev.informatics.file.service.DBFileStorageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,12 +34,14 @@ public class DBFileStorageServiceTest {
 
     @Mock
     private DBFileRepository mockDBFileRepository;
+    @Mock
+    private CloudinaryService cloudinaryService;
 
     private DBFileStorageService serviceToTest;
 
     @BeforeEach
     void setUp() {
-        serviceToTest = new DBFileStorageService(mockDBFileRepository);
+        serviceToTest = new DBFileStorageService(cloudinaryService, mockDBFileRepository);
 
         dbFile = new DBFile();
         dbFile.setId(VALID_ID);
@@ -69,6 +72,38 @@ public class DBFileStorageServiceTest {
         assertEquals(VALID_FILE_NAME, dbFile.getFileName());
         assertEquals(VALID_FILE_TYPE, dbFile.getFileType());
         assertEquals(VALID_DATA, dbFile.getData());
+    }
+
+    @Test
+    public void storeFileShouldStoreUploadBackupFileForPictures() throws IOException, FileStorageException {
+        // Arrange
+        final String validImageType = "image/x-png";
+        final String validBackupUrl = "validBackupUrl";
+        MultipartFile multipartFile = Mockito.mock(MultipartFile.class);
+        dbFile.setBackupUrl(validBackupUrl);
+        dbFile.setFileType(validImageType);
+        when(multipartFile.getOriginalFilename())
+                .thenReturn(VALID_FILE_NAME);
+        when(multipartFile.getBytes())
+                .thenReturn(VALID_DATA);
+        when(multipartFile.getContentType())
+                .thenReturn(validImageType);
+
+        when(this.mockDBFileRepository.save(Mockito.any(DBFile.class)))
+                .thenReturn(dbFile);
+        when(this.cloudinaryService.uploadFile(multipartFile))
+                .thenReturn(validBackupUrl);
+
+        // Act
+        DBFile file = this.serviceToTest.storeFile(multipartFile);
+
+        // Assert
+        assertEquals(VALID_ID, dbFile.getId());
+        assertEquals(VALID_FILE_NAME, dbFile.getFileName());
+        assertEquals(validImageType, dbFile.getFileType());
+        assertEquals(VALID_DATA, dbFile.getData());
+        assertEquals(validBackupUrl, dbFile.getBackupUrl());
+        verify(this.cloudinaryService, times(1)).uploadFile(multipartFile);
     }
 
     @Test

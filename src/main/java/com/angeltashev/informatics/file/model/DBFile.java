@@ -25,6 +25,9 @@ public class DBFile {
     @Column(name = "data")
     private byte[] data;
 
+    @Column(name = "backup_url")
+    private String backupUrl;
+
     public DBFile(String fileName, String fileType, byte[] data) {
         this.fileName = fileName;
         this.fileType = fileType;
