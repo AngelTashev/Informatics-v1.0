@@ -23,13 +23,11 @@ public class FileControllerTest {
     public void downloadResourcesShouldReturnStatusFound() throws Exception {
         this.mockMvc.perform(get("/files/resources/download/{id}", "validId"))
                 .andExpect(status().isFound());
-        // TODO
     }
 
     @Test
     public void downloadSubmissionShouldReturnStatusFound() throws Exception {
         this.mockMvc.perform(get("/files/submissions/download/{id}", "validId"))
                 .andExpect(status().isFound());
-        // TODO
     }
 }
