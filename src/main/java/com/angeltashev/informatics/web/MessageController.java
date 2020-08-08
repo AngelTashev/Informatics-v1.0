@@ -32,7 +32,7 @@ public class MessageController {
         if (!model.containsAttribute("messageModel")) {
             model.addAttribute("messageModel", new MessageAddBindingModel());
         }
-        return "/message/message-add";
+        return "message/message-add";
     }
 
     @PreAuthorize("permitAll()")
