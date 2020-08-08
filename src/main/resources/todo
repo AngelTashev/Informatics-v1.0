@@ -29,8 +29,8 @@ messages service unit testing +++
 integration testing (controllers) +++
 unit testing (helpers) +++
 80% test coverage +++
+cloud service saving (cloudinary) +++
 
-cloud service saving (cloudinary?)
 host app
 
 
