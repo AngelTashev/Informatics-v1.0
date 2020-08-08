@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="page-footer font-small mdb-color lighten-3 pt-4" style="background: #024959;">
+<footer class="page-footer font-small mdb-color lighten-3 pt-4" style="background: #024959;" xmlns:th="http://www.thymeleaf.org">
 
     <!-- Footer Links -->
     <div class="container text-center text-md-left">
@@ -11,7 +11,7 @@
             <div class="col-md-4 col-lg-3 mr-auto my-md-4 my-0 mt-4 mb-1">
 
                 <!-- Content -->
-                <h5 class="font-weight-bold text-uppercase mb-4 footer-title">Footer Content</h5>
+                <h5 class="font-weight-bold text-uppercase mb-4 footer-title">Informatics Club</h5>
                 <p class="footer-content">Here you can use rows and columns to organize your footer content.</p>
                 <p class="footer-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit amet numquam iure provident voluptate
                     esse
@@ -31,22 +31,12 @@
                 <ul class="list-unstyled">
                     <li>
                         <p>
-                            <a href="#!">PROJECTS</a>
+                            <a th:href="@{/contact-us}">CONTACT</a>
                         </p>
                     </li>
                     <li>
                         <p>
-                            <a href="#!">ABOUT US</a>
-                        </p>
-                    </li>
-                    <li>
-                        <p>
-                            <a href="#!">BLOG</a>
-                        </p>
-                    </li>
-                    <li>
-                        <p>
-                            <a href="#!">AWARDS</a>
+                            <a th:href="@{/about-us}"></a>
                         </p>
                     </li>
                 </ul>
@@ -65,19 +55,19 @@
                 <ul class="list-unstyled">
                     <li>
                         <p class="footer-content">
-                            <i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+                            <i class="fas fa-home mr-3"></i> First English Language School, Sofia</p>
                     </li>
                     <li>
                         <p class="footer-content">
-                            <i class="fas fa-envelope mr-3"></i> info@example.com</p>
+                            <i class="fas fa-envelope mr-3"></i> masters@fels.org</p>
                     </li>
                     <li>
                         <p class="footer-content">
-                            <i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+                            <i class="fas fa-phone mr-3"></i> +359 878 567 88</p>
                     </li>
                     <li>
                         <p class="footer-content">
-                            <i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+                            <i class="fas fa-print mr-3"></i> +359 899 567 89</p>
                     </li>
                 </ul>
 
@@ -120,7 +110,7 @@
 
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3 footer-content">© 2020 Copyright:
-        <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+        <a href="https://mdbootstrap.com/"> Informatics Club of FELS</a>
     </div>
     <!-- Copyright -->
 
