@@ -4,15 +4,20 @@ spring:
     username: "root"
     password: "root"
     continueOnError: true
-    driver-class-name: "com.mysql.cj.jdbc.Driver"
+    driver-class-name: "com.mysql.jdbc.Driver"
 
     hikari:
       connection-test-query: SELECT 1
+      connection-timeout: 30000
+      maximum-pool-size: 10
   jpa:
     hibernate:
       ddl-auto: update
 
     open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
   servlet:
     multipart:
       enabled: true
