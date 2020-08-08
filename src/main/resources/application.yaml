@@ -1,7 +1,10 @@
 spring:
   datasource:
+#    url: "jdbc:mysql://localhost:3306/informatics_db?serverTimezone=UTC&characterEncoding=UTF-8&sslMode=DISABLED&createDatabaseIfNotExist=true"
     url: "mysql://b1cf57e467c21a:3dc9d480@us-cdbr-east-02.cleardb.com/heroku_93fcc7c7861a86b?reconnect=true&createDatabaseIfNotExist=true"
+#    username: "root"
     username: "b1cf57e467c21a"
+#    password: "root"
     password: "3dc9d480"
     continueOnError: true
     driver-class-name: "com.mysql.cj.jdbc.Driver"

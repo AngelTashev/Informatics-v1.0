@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="~{/fragments/head}"/>
+    <th:block th:include="~{fragments/head}"/>
     <title>About us</title>
     <link rel="stylesheet" th:href="@{/css/profile.css}"/>
 </head>
 <body>
 
-<th:block th:replace="~{/fragments/nav}"/>
+<th:block th:replace="~{fragments/nav}"/>
 
 <header class="text-center py-5 bg-image-full mb-5"
         style="background-image: url('/img/informatics-people.jpg'); background-attachment: fixed; height: 600px; background-position: center">
@@ -59,6 +59,6 @@
     </div>
 </section>
 
-<th:block th:include="~{/fragments/footer}"/>
+<th:block th:include="~{fragments/footer}"/>
 </body>
 </html>

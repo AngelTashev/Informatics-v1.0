@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="~{/fragments/head}"/>
+    <th:block th:include="~{fragments/head}"/>
     <title>Informatics Club</title>
     <script data-cfasync="false" data-tockify-script="embed" src="https://public.tockify.com/browser/embed.js"></script>
 </head>
 <body>
 
-<th:block th:replace="~{/fragments/nav}"/>
+<th:block th:replace="~{fragments/nav}"/>
 <div th:object="${userHomeView}">
     <h1 class="m-lg-5 text-center">Hello, <span th:text="*{fullName}"></span></h1>
 
@@ -35,6 +35,6 @@
 </div>
 
 
-<th:block th:include="~{/fragments/footer}"/>
+<th:block th:include="~{fragments/footer}"/>
 </body>
 </html>

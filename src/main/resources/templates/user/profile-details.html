@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>My profile</title>
-    <th:block th:include="~{/fragments/head}"/>
+    <th:block th:include="~{fragments/head}"/>
     <link rel="stylesheet" th:href="@{/css/profile.css}"/>
 </head>
 <body>
-<th:block th:include="~{/fragments/nav}"/>
+<th:block th:include="~{fragments/nav}"/>
 <div th:object="${userView}" class="container">
     <div class="row">
         <div class="profile-header-container">
