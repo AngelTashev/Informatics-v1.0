@@ -26,9 +26,11 @@ authority service unit testing +++
 file service unit testing +++
 assignment service unit testing +++
 messages service unit testing +++
+integration testing (controllers) +++
+unit testing (helpers) +++
+80% test coverage +++
 
-unit testing (helpers)
-integration testing (controllers)
+cloud service saving (cloudinary?)
 
 
 

@@ -1,4 +1,4 @@
-package com.angeltashev.informatics.interceptors;
+package com.angeltashev.informatics.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

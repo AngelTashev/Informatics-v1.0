@@ -63,6 +63,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .logoutSuccessUrl("/")
                 .and()
-                .csrf().csrfTokenRepository(this.csrfTokenRepository());
+                .csrf()
+                .disable(); // For Tests
+//                .csrfTokenRepository(this.csrfTokenRepository());
     }
 }

@@ -1,7 +1,7 @@
 package com.angeltashev.informatics.config.app;
 
-import com.angeltashev.informatics.interceptors.ErrorInterceptor;
-import com.angeltashev.informatics.interceptors.FaviconInterceptor;
+import com.angeltashev.informatics.interceptor.ErrorInterceptor;
+import com.angeltashev.informatics.interceptor.FaviconInterceptor;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

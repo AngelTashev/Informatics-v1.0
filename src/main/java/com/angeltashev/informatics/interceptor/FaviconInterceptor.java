@@ -1,4 +1,4 @@
-package com.angeltashev.informatics.interceptors;
+package com.angeltashev.informatics.interceptor;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
