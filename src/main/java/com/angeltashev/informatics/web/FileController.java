@@ -6,6 +6,7 @@ import com.angeltashev.informatics.file.service.DBFileStorageService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,7 @@ public class FileController {
             DBFile file = this.fileStorageService.getFile(fileId);
             byte[] fileBytes = file.getData();
 
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getFileName());
             response.setContentType(file.getFileType());
             InputStream is = new ByteArrayInputStream(file.getData());
             IOUtils.copy(is, response.getOutputStream());

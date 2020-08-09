@@ -35,11 +35,6 @@ host app (heroku) +++
 
 
 ----------------
-change all texts ***
-
+SQL command for packets
 
 #SET GLOBAL max_allowed_packet=268435456;   for sql packets
-
-
-----------------
-SOFTUNI REQUIREMENTS
